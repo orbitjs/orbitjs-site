@@ -1,0 +1,49 @@
+.highlight
+    overflow: auto
+
+    tr:hover td
+        background: none
+
+    figcaption
+        font-size: 12px
+        padding-bottom: 5px
+
+    figcaption a
+        float: right
+
+
+color-class = #795da3
+color-function = #a71d5d
+color-params = #333
+color-string = #4f9a4f
+color-string-subst = #444
+color-symbol = #0086b3
+color-comment = #969896
+
+.ruby
+  .code
+    pre
+      .line
+        .title .keyword
+        .class
+        .class .keyword
+        .class .title
+          color: color-class
+        .symbol
+          color: color-symbol
+        .function .title
+          color: color-function
+        .function .params
+          color: color-params
+        .string
+          color: color-string
+        .string .subst
+          color: color-string-subst
+        .comment
+          color: color-comment
+
+.bash
+  .code
+    pre
+      .line
+        color: color-function

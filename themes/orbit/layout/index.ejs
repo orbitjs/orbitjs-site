@@ -1,0 +1,79 @@
+<div class="sidebar">
+  <ul class="main-menu">
+    <%- partial('partials/main_menu', { context: 'sidebar' }) %>
+  </ul>
+</div>
+
+<div id="hero">
+  <div class="inner">
+    <div class="left">
+      <img class="hero-logo" src="/images/logo.png">
+    </div><div class="right">
+      <h2>Orbit.js</h2>
+      <h1>Flexible data access and synchronization.</h1>
+      <div class="install-command">
+        <span class="code">ToDo</span>
+      </div>
+      <p>
+        <a class="button" href="/v0.9/guide/">LEARN MORE</a>
+        <a class="button white" href="https://github.com/orbitjs/orbit" target="_blank">GITHUB</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div id="highlights">
+  <div class="inner">
+    <div class="point">
+      <h2>Point 1</h2>
+      <p></p>
+    </div>
+
+    <div class="point">
+      <h2>Point 2</h2>
+      <p></p>
+    </div>
+
+    <div class="point">
+      <h2>Point 3</h2>
+      <p></p>
+    </div>
+
+    <div class="point">
+      <h2>Point 4</h2>
+      <p></p>
+    </div>
+  </div>
+</div>
+
+<div id="sponsors">
+  <div class="inner">
+    <h3>PROUDLY SPONSORED BY</h3>
+    <%- partial('partials/sponsors') %>
+    <br>
+    <a class="become-sponsor button white" href="/sponsor/">Sponsor Development</a>
+  </div>
+</div>
+
+<div id="footer">
+  <ul class="social-buttons">
+    <li><a href="https://github.com/orbitjs/orbit" class="nav-link" target="_blank">GitHub</a></li>
+    <li><a href="https://gitter.im/orbitjs/orbit.js" class="nav-link" target="_blank">Chat</a></li>
+    <li><a href="https://twitter.com/orbitjs" class="nav-link" target="_blank">Twitter</a></li>
+  </ul>
+  <p>Orbit.js is released under the <a href="https://opensource.org/licenses/MIT" href="_blank">MIT License</a>.
+  Copyright &copy; <%- new Date().getFullYear() %> <a href="http://www.cerebris.com">Cerebris Corporation</a>.</p>
+</div>
+
+<script>
+var topScrolled = false
+window.addEventListener('scroll', function () {
+  if (window.pageYOffset > 165 && !topScrolled) {
+    topScrolled = true
+    document.getElementById('mobile-bar').classList.remove('top')
+  } else if (window.pageYOffset <= 165 && topScrolled) {
+    topScrolled = false
+    document.getElementById('mobile-bar').classList.add('top')
+  }
+})
+</script>
