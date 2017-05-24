@@ -6,43 +6,101 @@
 
 <div id="hero">
   <div class="inner">
-    <div class="left">
-      <img class="hero-logo" src="/images/logo.png">
-    </div><div class="right">
-      <h2>Orbit.js</h2>
-      <h1>Flexible data access and synchronization.</h1>
+    <div class="centered">
+      <img class="hero-logo" src="/images/logo.png" alt="Orbit.js">
+    </div>
+    <div class="centered">
+      <h1>Orchestrate your data.</h1>
       <div class="install-command">
-        <span class="code">ToDo</span>
+        <span class="code">npm install @orbit/data</span>
       </div>
       <p>
-        <a class="button" href="/v0.9/guide/">LEARN MORE</a>
-        <a class="button white" href="https://github.com/orbitjs/orbit" target="_blank">GITHUB</a>
+        <a class="button white" href="/v0.9/guide/">GET STARTED</a>
       </p>
     </div>
   </div>
 </div>
 
-<div id="highlights">
+<div id="tour">
   <div class="inner">
-    <div class="point">
-      <h2>Point 1</h2>
-      <p></p>
-    </div>
+    <section>
+      <h3>Orbit is a framework for orchestrating access, transformation,
+        and synchronization between data sources.</h3>
+    </section>
 
-    <div class="point">
-      <h2>Point 2</h2>
-      <p></p>
-    </div>
+    <section>
+      <div class="image">
+        <img src="/images/tour/normalized-data.png" alt="Disparate data">
+      </div>
+      <div class="details">
+        <p>Your application may need to interact with data from a variety of
+          sources: a REST server, a WebSocket stream, an
+          IndexedDB backup, an in-memory store, etc.</p>
 
-    <div class="point">
-      <h2>Point 3</h2>
-      <p></p>
-    </div>
+        <p>Orbit can coordinate data flows across any number of sources
+        through a standard set of interfaces using normalized data structures.</p>
+      </dd>
+    </section>
 
-    <div class="point">
-      <h2>Point 4</h2>
-      <p></p>
-    </div>
+    <section>
+      <div class="image">
+        <img src="/images/tour/branches.png" alt="Deterministic tracking">
+      </div>
+      <div class="details">
+        <p>Data correctness is vital to user trust, so you need a
+          deterministic approach to manage it.</p>
+        <p>Orbit uses a Git-like approach to track changes across data sources.
+        Changes are expressed as "transforms", which are similar to Git commits.
+        Logs provide a per-source history. Like Git repos, sources can be
+        diffed, forked, merged, and reset.</p>
+      </div>
+    </section>
+    <section>
+      <div class="image">
+        <img src="/images/tour/connections.png" alt="Connect sources">
+      </div>
+      <div class="details">
+        <p>Not all data can be treated uniformly. Some data is transient, while
+        other data should persist for the life of your app. Some changes should
+        be made pessimistically and must be confirmed by a remote server. Other
+        changes can be made optimistically, cached locally, and pushed
+        eventually.</p>
+        <p>Orbit provides coordination strategies which can be customized to
+          the needs of your application.</p>
+      </div>
+    </section>
+    <section>
+      <div class="image">
+        <img src="/images/tour/offline.png" alt="Offline">
+      </div>
+      <div class="details">
+        <p>In an increasingly mobile world, it's ideal to keep applications
+          available even when the Internet is not.</p>
+        <p>Orbit provides the tools needed to build robust offline experiences.
+          Backup your application's state, including data caches, logs, and
+          queues, to browser storage. Query and change local data when offline,
+          while queueing changes for synchronization when online again.</p>
+      </div>
+    </section>
+    <section>
+      <div class="image">
+        <img src="/images/tour/isomorphic.png" alt="Isomorphic">
+      </div>
+      <div class="details">
+        <p>Orbit is isomorphic - it can be run in modern browsers as well
+          as in the Node.js runtime.</p>
+        <p>Orbit is written in
+          <a href="https://www.typescriptlang.org">TypeScript</a>. Its libraries
+          are distributed on npm through the
+          <a href="https://www.npmjs.com/org/orbit">@orbit</a> organization in
+          several module formats and ES language levels.</p>
+      </div>
+    </section>
+    <section>
+      <div class="centered">
+        <a class="button" href="/v0.9/guide/">LEARN MORE</a>
+      </div>
+    </section>
   </div>
 </div>
 
