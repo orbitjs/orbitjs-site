@@ -167,3 +167,24 @@ applies coordination strategies to keep them in sync, handle problems, perform
 logging, and more. Strategies can be customized to observe only certain events
 on specific sources.
 
+## The Orbit Philosophy
+
+The primitives in Orbit were developed to be as composable and interchangeable
+as possible. Every source that can be updated understands transforms and
+operations. Every source that can be queried understands queries and query
+expressions. Every bucket that can persist state supports the same interfaces.
+
+Orbit's primitives allow you to start simple and add complexity gradually
+without impacting your working code. Need to support real time sockets or SSE?
+Add another source and coordination strategy. Need offline support? Add another
+source and coordination strategy. When offline, you can issue the same queries
+against your in-memory store as you could against a backend REST server.
+
+Not only does Orbit allow you to incur the cost of complexity gradually, that
+cost can be contained. New capabilities can often be added through declarative
+upfront "wiring" rather than imperative handlers spread throughout your
+codebase.
+
+Although Orbit does not pretend to absorb all the complexity of writing
+ambitious data-driven applications, it's hoped that Orbit's composeable and
+declarative approach makes it not only attainable but actually enjoyable :)
