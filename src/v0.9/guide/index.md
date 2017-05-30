@@ -6,19 +6,19 @@ version: 0.9
 
 ## What is Orbit.js?
 
-Orbit is a composable framework for orchestrating change processing, tracking,
-and synchronization across multiple data sources.
+Orbit is a framework for orchestrating access, transformation, and
+synchronization between data sources.
 
 Orbit is written in [Typescript](https://www.typescriptlang.org) and distributed
-on npm through the [@orbit](https://www.npmjs.com/org/orbit) organization.
-
-Orbit is isomorphic - it can be run both in modern browsers as well as in the
-[Node.js](https://nodejs.org/) runtime.
+on [npm](https://www.npmjs.com/org/orbit) as packages containing a variety of
+module formats and ES language levels. Orbit is isomorphic - many packages can
+be run in modern browsers as well as in the [Node.js](https://nodejs.org/)
+runtime.
 
 ## Goals
 
-Orbit was primarily designed as a data layer to support the needs of ambitious
-client-side web applications, including:
+Orbit was primarily designed to support the data needs of ambitious client-side
+web applications, including:
 
 * Optimistic and pessimistic UX patterns.
 
@@ -36,81 +36,134 @@ client-side web applications, including:
 * Custom request coordination across multiple sources, allowing for priority
   and fallback plans.
 
-* Branching and merging of immutable data caches.
+* Branching and merging of data caches.
 
 * Deterministic change tracking.
 
 * Undo / redo editing support.
 
-In order to meet these goals, many primitives were developed in Orbit that can
-be used in ways that go beyond these original use cases.
+## Basic constraints
 
-## Packages
+In order to meet these ambitious goals, Orbit embraces a set of basic
+constraints related to data sources and interactions between them.
 
-### Core libraries
+<img src="/images/concepts/disparate-sources.png" class="medium-pic right-pic" />
 
-Orbit consists of the following core libraries:
+### Disparate sources
 
-* [@orbit/core](./packages/@orbit/core) - A core set of primitives for
-performing, tracking, and responding to asynchronous tasks, including:
+Any number of data sources of varying types and faculties may be required to
+build any given web application.
 
-  * An event system that allows listeners to engage with the fulfillment of
-    events by returning promises.
+<div class="clearfix"></div>
 
-  * An asynchronous task processing queue.
+<img src="/images/concepts/disparate-data.png" class="medium-pic right-pic" />
 
-  * A log that tracks a history of changes and allows for revision and
-    interrogation.
+### Disparate data
 
-  * A bucket interface for persisting state. Used by logs and queues.
+Sources of data vary widely in how they internally represent data and the
+interfaces they expose to access that data.
 
-* [@orbit/data](./packages/@orbit/data) - Applies the core Orbit primitives
-to data sources. Includes the following elements:
+<div class="clearfix"></div>
 
-  * A schema for defining models, including attributes and relationships.
+<img src="/images/concepts/common-interfaces.png" class="medium-pic right-pic" />
 
-  * Operations used to manipulate records (e.g. `addRecord`, `removeRecord`,
-    `addToHasMany`, etc.).
+### Compatible interfaces
 
-  * Transforms, which are composed of any number of operations, and must be
-    performed transactionally.
+Communication between sources must happen using a compatible set of interfaces.
 
-  * A query language that allows query expressions to be composed in a flexible
-    AST form.
+<div class="clearfix"></div>
 
-  * A base `Source` class that can be used to abstract any source of data.
-    Sources can be decorated as `pullable`, `pushable`, `queryable`, `syncable`,
-    and/or `updatable` - each decorator provides a unique interface that allows
-    for transforms and queries to be applied as appropriate.
+<img src="/images/concepts/normalized-data.png" class="medium-pic right-pic" />
 
-* [@orbit/utils](./packages/@orbit/utils) - A common set of utility functions
-used by Orbit libs.
+### Normalized data
 
-### Standard data sources
+Data that flows between sources must be normalized to a shared schema.
 
-Orbit provides the following sources for accessing and persisting data:
+<div class="clearfix"></div>
 
-* [@orbit/jsonapi](./packages/@orbit/jsonapi) - Provides full CRUD support,
-  including complex querying, for a RESTful API that conforms to the
-  [JSON:API](http://jsonapi.org/) specification.
+<img src="/images/concepts/evented-connections.png" class="medium-pic right-pic" />
 
-* [@orbit/local-storage](./packages/@orbit/local-storage) -
-  Persists records to local storage.
+### Notifications
 
-* [@orbit/indexeddb-bucket](./packages/@orbit/indexeddb-bucket) -
-  Persists records to IndexedDB.
+Sources need a notification system through which changes can be
+observed. Changes in one source must be able to trigger changes in other
+sources.
 
-These standard sources can provide guidance for building your own custom sources
-as well.
+<div class="clearfix"></div>
 
-### Standard persistence buckets
+<img src="/images/concepts/flow-control.png" class="medium-pic right-pic" />
 
-Buckets are used to persist application state, such as queued requests and
-change logs. Standard buckets include:
+### Flow control
 
-* [@orbit/local-storage-bucket](./packages/@orbit/local-storage-bucket) -
-  Persists state to local storage.
+Data flow across sources must be configurable. Flows can be _optimistic_
+(successful regardless of their impact) or _pessimistic_ (blocked until
+dependent changes have resolved).
 
-* [@orbit/indexeddb-bucket](./packages/@orbit/indexeddb-bucket) -
-  Persists state to IndexedDB.
+<div class="clearfix"></div>
+
+<img src="/images/concepts/change-tracking.png" class="medium-pic right-pic" />
+
+### Change tracking
+
+Mutations, and not just the effects of mutations, must be trackable so that
+changes can be logged, diff'd and sync’d across sources, and even reverted if
+necessary.
+
+<div class="clearfix"></div>
+
+## Orbit primitives
+
+Orbit's core primitives were developed to align with the goals and
+constraints enumerated above.
+
+### Source
+
+Every source of data, from an in-memory store to an IndexedDB database to a
+REST server, is represented as a `Source`.
+
+Sources vary widely in their capabilities and may individually support
+interfaces that enable updating, querying, etc.
+
+### Schema
+
+All of the models and relationships in a given domain are defined in a shared
+`Schema`. Record data is structured to align with this schema.
+
+### Transform
+
+A `Transform` is used to represent mutations to sources. Each transform is
+composed of an array of operations. An `Operation` represents a single change to
+a record or relationship (e.g. adding a record, updating a field, removing a
+relationship, etc.). Transforms must be applied atomically - all operations
+succeed or fail together.
+
+### Query
+
+The contents of sources can be interrogated using a `Query`. A query is
+composed of a tree of query expressions. A `QueryExpression` can take any
+number of arguments, which can be query expressions themselves. A query builder
+is provided to improve the ergonomics of composing query expressions.
+
+### Log
+
+A `Log` provide a history of transforms applied to each source.
+
+### Task
+
+Every action performed upon sources, whether an update request or a query, is
+modeled as a `Task`. Tasks are queued by sources and performed asynchronously
+and serially.
+
+### Bucket
+
+A `Bucket` is used to persist application state, such as queued tasks and
+change logs.
+
+### Coordinator
+
+A `Coordinator` provides the declarative "wiring" needed to keep an Orbit
+application working smoothly. A coordinator observes a number of sources and
+applies coordination strategies to keep them in sync, handle problems, perform
+logging, and more. Strategies can be customized to observe only certain events
+on specific sources.
 
