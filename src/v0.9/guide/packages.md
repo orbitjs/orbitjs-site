@@ -7,7 +7,7 @@ version: 0.9
 Orbit is distributed on npm through the
 [@orbit](https://www.npmjs.com/org/orbit) organization in several packages.
 
-### Core libraries
+## Core libraries
 
 Orbit consists of the following core libraries:
 
@@ -51,7 +51,7 @@ the core Orbit primitives to data sources. Includes the following elements:
 * [@orbit/utils](https://github.com/orbitjs/orbit/packages/@orbit/utils) - A
 common set of utility functions used by Orbit libs.
 
-### Standard data sources
+## Standard data sources
 
 Orbit provides the following sources for accessing and persisting data:
 
@@ -68,7 +68,7 @@ Persists records to IndexedDB.
 These standard sources can provide guidance for building your own custom sources
 as well.
 
-### Standard persistence buckets
+## Standard persistence buckets
 
 Buckets are used to persist application state, such as queued requests and
 change logs. Standard buckets include:
@@ -79,3 +79,9 @@ Persists state to local storage.
 * [@orbit/indexeddb-bucket](https://github.com/orbitjs/orbit/packages/@orbit/indexeddb-bucket) -
 Persists state to IndexedDB.
 
+## Additional libraries
+
+Additional libraries related to Orbit include:
+
+* [ember-orbit](https://github.com/orbitjs/ember-orbit) - An Ember.js data
+  layer heavily inspired by Ember Data.
