@@ -1,7 +1,7 @@
 title: Introduction
 type: guide
 order: 0
-version: 0.9
+version: 0.11
 ---
 
 ## What is Orbit.js?

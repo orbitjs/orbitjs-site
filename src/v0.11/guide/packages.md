@@ -1,7 +1,7 @@
 title: Packages
 type: guide
 order: 1
-version: 0.9
+version: 0.11
 ---
 
 Orbit is distributed on npm through the

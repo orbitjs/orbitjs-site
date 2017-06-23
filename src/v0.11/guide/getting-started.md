@@ -1,7 +1,7 @@
 title: Getting started
 type: guide
 order: 2
-version: 0.9
+version: 0.11
 ---
 
 This brief tutorial walks through using Orbit to manage data in a client-side
