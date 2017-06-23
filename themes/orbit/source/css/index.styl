@@ -6,13 +6,7 @@ $width = 900px
 $space = 50px
 
 body
-    background-color darken($light, 10%)
-
-#logo
-    span
-        font-size 1.2em
-    img
-        display none
+    background-color #fff
 
 .sidebar
     display none
@@ -25,38 +19,40 @@ body
             display none
 
 #hero
-    padding $space 40px
-    background-color #fff
+    padding 6rem 0 3rem
+    margin-bottom 2rem
+    background-image url(/images/galaxy.jpg)
+    background-position center
+    background-color #000
     .inner
         max-width $width
         margin 0 auto
-    .left, .right
+    .centered
         display inline-block
         vertical-align top
-    .left
-        width 39%
-    .right
-        width 61%
+        text-align center
+        width 100%
     .hero-logo
         width 178px
         height 178px
-        float right
-        margin-right 60px
+        margin-bottom 15px
     .install-command
-        padding 1em 15px
-        margin 1em 0
-        display inline-block
-        background lighten($light, 90%)
-        border 3px solid lighten($light, 70%)
+        padding 1em 1.5em
+        margin 2em 0
+        display none //inline-block
+        background #ffffffaa
+        border 3px solid lighten($light, 10%)
         font-family Source Code Pro,Monaco,Menlo,Consolas,monospace
         :before
             content '$'
             padding-right 0.7em
             opacity 0.5
     h1
-        font-weight 300
+        font-weight bold
         margin 0
-        font-size 3.2em
+        font-size 3.5em
+        color #fff
+        text-shadow 5px 5px 8px #333
     h2
         font-family $logo-font
         font-weight 500
@@ -68,37 +64,44 @@ body
         font-size 1.05em
         font-weight 600
         letter-spacing .1em
-        &:first-child
-            margin-right 1em
     .social-buttons
         list-style-type none
         padding 0
         li
             display inline-block
             vertical-align middle
-            margin-right 15px
+            margin 0 5px
 
-#highlights
+
+#tour
     background-color #fff
-    padding-bottom 70px
     .inner
         max-width $width
         margin 0 auto
-        text-align center
-    .point
-        width 49%
+    section
+        width 100%
         display inline-block
-        vertical-align top
         box-sizing border-box
-        padding 0 2em
-        h2
-            color $green
-            font-size 1.5em
-            font-weight 400
-            margin 0
-            padding .5em 0
-        p
-            color $light
+        margin-bottom 2rem
+        h3
+            font-size 2rem
+            color #555
+        .image
+            float left
+            width 300px
+            img
+                max-width 100%
+                border 1px solid #ccc
+        .details
+            float left
+            width 500px
+            margin-left 2rem
+            font-size 1.2rem
+        .centered
+            display inline-block
+            vertical-align top
+            text-align center
+            width 100%
 
 #sponsors
     text-align center
@@ -163,26 +166,18 @@ body
         display block
     #hero
         padding $space 40px 30px
-        .hero-logo
-            float none
-            margin 30px 0 15px
-            width 229px
-            height 140px
-        .left, .right
-            text-align center
-            width 100%
         h1
-            font-size 2em
-        h2
-            display block
+            font-size 2.5em
         .button
             font-size .9em
-    #highlights
-        .point
-            display block
-            margin 0 auto
-            width 300px
-            padding 0 40px 30px
-            &:before
-                content "—"
-                color $green
+    #tour
+        section
+            text-align center
+            .image, .details
+                float none
+                text-align center
+                width 100%
+                padding 0
+            .image
+                margin-bottom 1rem
+
