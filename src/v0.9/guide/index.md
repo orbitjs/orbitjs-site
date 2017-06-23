@@ -105,9 +105,8 @@ dependent changes have resolved).
 
 ### Change tracking
 
-Mutations, and not just the effects of mutations, must be trackable so that
-changes can be logged, diff'd and sync’d across sources, and even reverted if
-necessary.
+Mutations, and not just the effects of mutations, must be trackable to allow
+changes to be logged, diff'd, sync’d, and even reverted.
 
 <div class="clearfix"></div>
 
@@ -139,10 +138,10 @@ succeed or fail together.
 
 ### Query
 
-The contents of sources can be interrogated using a `Query`. A query is
-composed of a tree of query expressions. A `QueryExpression` can take any
-number of arguments, which can be query expressions themselves. A query builder
-is provided to improve the ergonomics of composing query expressions.
+The contents of sources can be interrogated using a `Query`. A query is composed
+of a tree of refinements that are particular to the primary expression (e.g.
+sort order, filters, etc.). A query builder is provided to improve the
+ergonomics of composing queries.
 
 ### Log
 
@@ -171,8 +170,8 @@ on specific sources.
 
 The primitives in Orbit were developed to be as composable and interchangeable
 as possible. Every source that can be updated understands transforms and
-operations. Every source that can be queried understands queries and query
-expressions. Every bucket that can persist state supports the same interfaces.
+operations. Every source that can be queried understands query expressions.
+Every bucket that can persist state supports the same interfaces.
 
 Orbit's primitives allow you to start simple and add complexity gradually
 without impacting your working code. Need to support real time sockets or SSE?
