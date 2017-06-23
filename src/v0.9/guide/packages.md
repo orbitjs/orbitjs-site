@@ -55,6 +55,12 @@ common set of utility functions used by Orbit libs.
 
 Orbit provides the following sources for accessing and persisting data:
 
+* [@orbit/store](https://github.com/orbitjs/orbit/packages/@orbit/store) - An
+  in-memory data store that supports complex querying and updating. Because
+  stores maintain data in immutable data structures, they can be efficiently
+  forked. Forked stores can diverge from the master store, and then the changes
+  can be merged later.
+
 * [@orbit/jsonapi](https://github.com/orbitjs/orbit/packages/@orbit/jsonapi) -
   Provides full CRUD support, including complex querying, for a RESTful API that
   conforms to the [JSONAPI](http://jsonapi.org/) specification.
