@@ -83,7 +83,7 @@ const theMoon = {
     name: 'The Moon'
   },
   relationships: {
-    planet: { data: 'planet:earth' }
+    planet: { data: { type: 'planet', id: 'earth' } }
   }
 };
 
@@ -111,9 +111,9 @@ The following output should be logged:
     },
     relationships: {
       moons: {
-        data: {
-          'moon:theMoon': true
-        }
+        data: [
+          { type: 'moon', id: 'theMoon' }
+        ]
       }
     }
   }
@@ -123,11 +123,10 @@ The following output should be logged:
 There's a lot going on here, so let's break it down.
 
 First of all, each record is represented by a POJO that aligns with its
-corresponding model definition in the schema. These representations conform
-largely with the [JSONAPI](http://jsonapi.org/) specification. Every record has
-a `type` and `id`. Relationship linkage is specified in a `data` object. The
-only divergence from the JSONAPI spec is that linkages are represented as
-`${type}:${id}` strings rather than objects to simplify relationship lookups.
+corresponding model definition in the schema. These representations conform with
+the [JSONAPI](http://jsonapi.org/) specification. Every record has an identity
+established by a `type` and `id` pair. Relationship linkage is specified in a
+`data` object via identities.
 
 In order to add records to the store, we call `store.update()` and pass an array
 of operations. Passing a function to `update` provides us with a transform
