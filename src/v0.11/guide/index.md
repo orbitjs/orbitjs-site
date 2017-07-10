@@ -11,8 +11,8 @@ synchronization between data sources.
 
 Orbit is written in [Typescript](https://www.typescriptlang.org) and distributed
 on [npm](https://www.npmjs.com/org/orbit) as packages containing a variety of
-module formats and ES language levels. Orbit is isomorphic - many packages can
-be run in modern browsers as well as in the [Node.js](https://nodejs.org/)
+module formats and ES language levels. Most Orbit packages are isomorphic -
+they can run in modern browsers as well as in the [Node.js](https://nodejs.org/)
 runtime.
 
 ## Goals
@@ -60,8 +60,8 @@ build any given web application.
 
 ### Disparate data
 
-Sources of data vary widely in how they internally represent data and the
-interfaces they expose to access that data.
+Sources of data vary widely in how they internally represent and access that
+data.
 
 <div class="clearfix"></div>
 
@@ -115,37 +115,42 @@ changes to be logged, diff'd, sync’d, and even reverted.
 Orbit's core primitives were developed to align with the goals and
 constraints enumerated above.
 
-### Source
+### Records
 
-Every source of data, from an in-memory store to an IndexedDB database to a
-REST server, is represented as a `Source`.
-
-Sources vary widely in their capabilities and may individually support
-interfaces that enable updating, querying, etc.
+Records are used to represent data in a normalized form. Each record has a
+`type` and `id`, which together establish its identity. Records may also include
+other fields, such as attributes and relationships with other records.
 
 ### Schema
 
-All of the models and relationships in a given domain are defined in a shared
-`Schema`. Record data is structured to align with this schema.
+A `Schema` defines all the models in a given domain. Each `Model` defines the
+characteristics for records of a given type.
+
+### Source
+
+Every source of data, from an in-memory store to an IndexedDB database to a REST
+server, is represented as a `Source`. Sources vary widely in their capabilities:
+some may support interfaces that for updating and/or querying records, while
+other sources may simply broadcast changes. Schemas provide sources with an
+understanding of the data they manage.
 
 ### Transform
 
-A `Transform` is used to represent mutations to sources. Each transform is
-composed of an array of operations. An `Operation` represents a single change to
-a record or relationship (e.g. adding a record, updating a field, removing a
-relationship, etc.). Transforms must be applied atomically - all operations
-succeed or fail together.
+A `Transform` is used to represent a set of record mutations, or "operations".
+Each `Operation` represents a single change to a record or relationship (e.g.
+adding a record, updating a field, deleting a relationship, etc.). Transforms
+must be applied atomically - all operations succeed or fail together.
 
 ### Query
 
-The contents of sources can be interrogated using a `Query`. A query is composed
-of a tree of refinements that are particular to the primary expression (e.g.
-sort order, filters, etc.). A query builder is provided to improve the
-ergonomics of composing queries.
+The contents of sources can be interrogated using a `Query`. Orbit comes with a
+standard set of query expressions for finding records and related records. These
+expressions can be paired with refinements (e.g. filters, sort order, etc.). A
+query builder is provided to improve the ergonomics of composing queries.
 
 ### Log
 
-A `Log` provide a history of transforms applied to each source.
+A `Log` provides a history of transforms applied to each source.
 
 ### Task
 
@@ -161,7 +166,7 @@ change logs.
 ### Coordinator
 
 A `Coordinator` provides the declarative "wiring" needed to keep an Orbit
-application working smoothly. A coordinator observes a number of sources and
+application working smoothly. A coordinator observes any number of sources and
 applies coordination strategies to keep them in sync, handle problems, perform
 logging, and more. Strategies can be customized to observe only certain events
 on specific sources.
