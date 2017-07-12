@@ -1,7 +1,7 @@
 title: Packages
 type: guide
 order: 1
-version: 0.11
+version: 0.14
 ---
 
 Orbit is distributed on npm through the
@@ -68,7 +68,7 @@ Orbit provides the following sources for accessing and persisting data:
 * [@orbit/local-storage](https://github.com/orbitjs/orbit/packages/@orbit/local-storage) -
 Persists records to local storage.
 
-* [@orbit/indexeddb-bucket](https://github.com/orbitjs/orbit/packages/@orbit/indexeddb-bucket) -
+* [@orbit/indexeddb](https://github.com/orbitjs/orbit/packages/@orbit/indexeddb) -
 Persists records to IndexedDB.
 
 These standard sources can provide guidance for building your own custom sources

@@ -1,7 +1,7 @@
 title: Getting started
 type: guide
 order: 2
-version: 0.11
+version: 0.14
 ---
 
 This brief tutorial walks through using Orbit to manage data in a client-side
@@ -76,6 +76,17 @@ const earth = {
     atmosphere: true
   }
 };
+
+const venus = {
+  type: 'planet',
+  id: 'venus',
+  attributes: {
+    name: 'Venus',
+    classification: 'terrestrial',
+    atmosphere: true
+  }
+};
+
 const theMoon = {
   type: 'moon',
   id: 'theMoon',
@@ -88,6 +99,7 @@ const theMoon = {
 };
 
 store.update(t => [
+  t.addRecord(venus)
   t.addRecord(earth),
   t.addRecord(theMoon)
 ])
@@ -115,6 +127,15 @@ The following output should be logged:
           { type: 'moon', id: 'theMoon' }
         ]
       }
+    }
+  },
+  {
+    type: "planet",
+    id: "venus",
+    attributes: {
+      name: "Venus",
+      classification: "terrestrial",
+      atmosphere: true
     }
   }
 ]

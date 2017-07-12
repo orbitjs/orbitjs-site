@@ -1,7 +1,7 @@
 title: Modeling data
 type: guide
-order: 9
-version: 0.11
+order: 4
+version: 0.14
 ---
 
 Data records must have a normalized structure that's consistent
@@ -13,9 +13,9 @@ application.
 Records are represented as lightweight, serializable POJOs (i.e. "Plain old
 JavaScript objects").
 
-Records can have fields that define their identity, attributes, and
-relationships with other records. The structure used for records conforms to
-the [JSONAPI](http://jsonapi.org/) specification.
+The structure used for records conforms to the [JSONAPI](http://jsonapi.org/)
+specification. Records can have fields that define their identity, attributes,
+and relationships with other records.
 
 Here's an example record that represents a planet:
 
@@ -205,10 +205,10 @@ empty options hash as follows:
 ```javascript
 const schema = new Schema({
   models: {
-    moons: {
+    moon: {
       keys: { remoteId: {} }
     },
-    planets: {
+    planet: {
       keys: { remoteId: {} }
     }
   }
@@ -228,9 +228,37 @@ Schemas support the ability to initialize records via an
 Currently, `initializeRecord` just assigns an `id` to a record if the field
 is undefined. It may be extended to allow per-model defaults to be set as well.
 
-The default implementation of `initializeRecord` calls the `generateId()`
-method to generate an `id`. By default, this invokes `Orbit.uuid()` to generate
-a v4 UUID (where `Orbit` is the default export from `@orbit/core`).
+Here's an example that creates a schema and initializes a record:
+
+```javascript
+import { Schema } from '@orbit/schema';
+
+const schema = new Schema({
+  models: {
+    planet: {
+      attributes: {
+        name: { type: 'string' }
+      }
+    }
+  }
+});
+
+let earth = {
+  type: 'planet',
+  attributes: {
+    name: 'Earth'
+  }
+};
+
+schema.initializeRecord(earth);
+
+console.log(earth.id); // "4facf3cc-7270-4b5e-aedd-94d777d31c31"
+```
+
+The default implementation of `initializeRecord` internally calls the schema's
+`generateId()` method to generate an `id`. By default, this invokes
+`Orbit.uuid()` to generate a v4 UUID (where `Orbit` is the default export from
+`@orbit/core`).
 
 It's possible to override `generateId` for a given schema to use a different
 local ID scheme. Here's a naive example:
