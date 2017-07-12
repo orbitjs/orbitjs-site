@@ -1,7 +1,7 @@
 title: Updating data
 type: guide
 order: 20
-version: 0.11
+version: 0.14
 ---
 
 Data in a source can be updated by applying a transform, which consists of one

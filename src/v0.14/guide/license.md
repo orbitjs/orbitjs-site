@@ -1,7 +1,7 @@
 title: License
 type: guide
 order: 110
-version: 0.11
+version: 0.14
 ---
 
 Copyright 2017 Cerebris Corporation.

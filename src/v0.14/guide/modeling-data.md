@@ -1,7 +1,7 @@
 title: Modeling data
 type: guide
 order: 4
-version: 0.11
+version: 0.14
 ---
 
 Data records must have a normalized structure that's consistent
