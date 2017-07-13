@@ -219,7 +219,7 @@ const schema = new Schema({
 
 > Note: A key such as `remoteId` might be serialized as simply `id` when
 communicating with a server. However, it's important to distinguish it from the
-client-generated `id` used for each resource, so it requires a unique name.
+client-generated `id` used within Orbit, so it requires a unique name.
 
 ### Record initialization
 
