@@ -122,6 +122,8 @@ of operations:
 store.update(t => [t.addRecord(earth), t.addRecord(jupiter)]);
 ```
 
+### Standard transforms
+
 You can use the standard `@orbit/data` transform builder as follows:
 
 ```javascript
@@ -185,3 +187,38 @@ store.update(t => t.replaceRelatedRecord(
   'solarSystem',
   { type: 'solarSystem', id: 'ourSolarSystem' }));
 ```
+
+### Transform options
+
+Options can be added to transforms to provide processing instructions to
+particular sources and to include metadata about transforms.
+
+For example, the following transform is given a `label` and contains
+instructions for the source named `remote`:
+
+```javascript
+store.update(t => t.replaceRecord({
+  type: 'planet',
+  id: 'earth',
+  attributes: {
+    name: 'Earth',
+    classification: 'terrestrial',
+    atmosphere: true
+  }
+}), {
+  label: 'Update planet Earth',
+  sources: {
+    remote: {
+      timeout: 100000
+    }
+  }
+});
+```
+
+A `label` can be useful for providing an understanding of actions that have been
+queued for processing.
+
+The `sources: ( ${sourceName}: sourceSpecificOptions }` pattern is used to pass
+options that only a particular source will understand when processing a
+transform. In this instance, we're telling our remote source to use a custom
+timeout when performing this particular update.
