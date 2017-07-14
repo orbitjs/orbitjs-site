@@ -186,7 +186,7 @@ In this instance, we're telling a source named `remote` (let's say it's a
 result in a server response that includes contacts together with their related
 phone numbers.
 
-## Synchronous queries against a store's cache
+## Querying a store's cache synchronously
 
 Note that `store.query` is asynchronous and thus returns results wrapped in a
 promise. This may seem strange at first because the store's data is "in memory".
