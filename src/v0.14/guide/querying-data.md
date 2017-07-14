@@ -4,10 +4,12 @@ order: 21
 version: 0.14
 ---
 
-The contents of sources can be interrogated using a `Query`. Orbit comes with a
+The contents of a source can be interrogated using a `Query`. Orbit comes with a
 standard set of query expressions for finding records and related records. These
-expressions can be paired with refinements (e.g. filters, sort order, etc.). A
-query builder is provided to improve the ergonomics of composing queries.
+expressions can be paired with refinements (e.g. filters, sort order, etc.).
+
+Custom query expressions can also be developed, as long as all the sources
+participating can understand them.
 
 ## Query expressions
 
@@ -183,3 +185,19 @@ In this instance, we're telling a source named `remote` (let's say it's a
 `JSONAPISource`) to include `include=phone-numbers` as a query param. This will
 result in a server response that includes contacts together with their related
 phone numbers.
+
+## Synchronous queries against a store's cache
+
+Note that `store.query` is asynchronous and thus returns results wrapped in a
+promise. This may seem strange at first because the store's data is "in memory".
+In fact, if you want to just "peek" into the contents of the store's memory,
+you can issue the same queries synchronously against the store's `Cache`.
+For example:
+
+```javascript
+// Results will be returned synchronously by querying the cache
+let planets = store.cache.query(q => q.findRecords('planet').sort('name'));
+```
+
+However, by querying the cache instead of the store, you're not allowing other
+sources to participate in the fulfillment of the query.

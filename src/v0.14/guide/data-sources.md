@@ -6,11 +6,16 @@ version: 0.14
 
 Sources provide access to data. They vary widely in their capabilities: some
 support interfaces for updating and/or querying records, while others simply
-broadcast changes. Orbit includes a number of "standard" sources: an in-memory
-store (`@orbit/store`), a JSON API client (`@orbit/jsonapi`), an IndexedDB
-source (`@orbit/indexeddb`), and a LocalStorage source (`@orbit/local-storage`).
-Custom sources can also be written to provide access to virtually any source of
-data.
+broadcast changes.
+
+Orbit includes a number of "standard" sources:
+
+* `@orbit/store` - an in-memory store
+* `@orbit/jsonapi` - a JSON API client
+* `@orbit/indexeddb` - for accessing IndexedDB databases
+* `@orbit/local-storage` - for accessing LocalStorage
+
+Custom sources can also be written to access to virtually any source of data.
 
 ## Base class
 
