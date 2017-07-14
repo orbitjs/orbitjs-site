@@ -2,10 +2,15 @@
 ## Docs: http://zespia.tw/hexo/docs/configuration.html
 ## Source: https://github.com/tommy351/hexo/
 
+# Orbit versions
+versions:
+  current: 0.14
+  all: ["0.14"]
+
 # Site
 title: Orbit.js
 subtitle: ""
-description: "ToDo: blah, blah blah"
+description: "A framework for orchestrating access, transformation, and synchronization between data sources."
 author: Cerebris Corporation
 email:
 language: en

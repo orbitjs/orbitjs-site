@@ -1,4 +1,4 @@
-<li><a href="/v0.14/guide/" class="nav-link<%- page.path.match(/guide/) ? ' current' : '' %>">Guide</a></li>
+<li><a href="/v<%= config.versions.current %>/guide/" class="nav-link<%- page.path.match(/guide/) ? ' current' : '' %>">Guide</a></li>
 <li><a href="/sponsor/" class="nav-link<%- page.path.match(/sponsor/) ? ' current' : '' %>">Sponsor</a></li>
 <li><a href="https://github.com/orbitjs/orbit" class="nav-link">GitHub</a></li>
 <%- partial('partials/community_dropdown') %>

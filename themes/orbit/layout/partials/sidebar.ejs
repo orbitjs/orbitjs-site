@@ -9,7 +9,9 @@
         </div>
         <h2>
             <select class="version-select">
-                <option value="0.14" <%= page.version == '0.14' ? 'selected' : null %> >0.14</option>
+                <% config.versions.all.forEach(function(v) { %>
+                <option value="<%- v %>" <%= page.version == v ? 'selected' : null %> ><%- v %></option>
+                <% }) %>
             </select>
         </h2>
         <ul class="menu-root">
