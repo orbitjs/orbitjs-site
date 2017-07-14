@@ -181,7 +181,7 @@ store.query(q => q.findRecords('planet')
                   .page({ offset: 0, limit: 10 }))
 ```
 
-### Querying a store's cache synchronously
+### Asynchronous vs. synchronous queries
 
 Note that `store.query` is asynchronous and thus returns results wrapped in a
 promise. This may seem strange at first because the store's data is "in memory".
@@ -194,11 +194,14 @@ For example:
 let planets = store.cache.query(q => q.findRecords('planet').sort('name'));
 ```
 
-However, by querying the cache instead of the store, you're not allowing other
-sources to participate in the fulfillment of the query. Continue reading to
-understand how requests to sources can be "coordinated".
+By querying the cache instead of the store, you're not allowing other sources to
+participate in the fulfillment of the query. Continue reading to understand how
+requests to sources can be "coordinated".
 
-Want to experiment? See [Part 1 of this example in WebpackBin](https://www.webpackbin.com/bins/-KlhieRJgT5kLmCf8RAQ).
+<hr />
+
+Want to experiment with some of the concepts presented so far?
+See [Part 1 of this example in WebpackBin](https://www.webpackbin.com/bins/-KlhieRJgT5kLmCf8RAQ).
 
 ## Defining a backup source
 
@@ -326,7 +329,10 @@ We now have an application which has data fully contained in the browser. Any
 data that's entered can be accessed while offline and will even persist across
 browser refreshes.
 
-Want to experiment? See [Part 2 of this example in WebpackBin](https://www.webpackbin.com/bins/-Kn9vdvtf4rUeJBUJAXb).
+<hr />
+
+Want to experiment more?
+See [Part 2 of this example in WebpackBin](https://www.webpackbin.com/bins/-Kn9vdvtf4rUeJBUJAXb).
 
 ## Communicating with a server
 
@@ -409,3 +415,50 @@ strategies, so that only certain updates are blocking (e.g. a store purchase).
 Orbit allows for filtering, exception handling, and more in strategies to
 enable any of these options. We'll dive deeper into these topics in the rest of
 this guide, the API docs, and sample applications.
+
+## Managing state with buckets
+
+At any given time, our Orbit application may have different kinds of state
+in-flight and unpersisted. This state may include tasks that are queued for
+processing, logs of transforms that have been applied, or other source-specific
+state that we'd like to reify if our application was closed unexpectedly.
+
+In order to persist this state, we can create a "bucket" that can be shared
+among our sources:
+
+```javascript
+import LocalStorageBucket from '@orbit/local-storage-bucket';
+import IndexedDBBucket, { supportsIndexedDB } from '@orbit/indexeddb-bucket';
+
+const BucketClass = supportsIndexedDB ? IndexedDBBucket : LocalStorageBucket;
+const bucket = new BucketClass({ namespace: 'my-app' });
+```
+
+Note that the above code favors using an IndexedDB-based bucket and only falls
+back to using a LocalStorage-based bucket if necessary.
+
+This `bucket` can be passed as a setting to any and all of our sources.
+For instance:
+
+```javascript
+const backup = new IndexedDBSource({
+  bucket,
+  schema,
+  name: 'backup',
+  namespace: 'solarsystem'
+});
+
+const store = new Store({ bucket, schema });
+```
+
+Each source will use the bucket to initialize its queues, logs, and other state.
+And as their state changes, sources will use buckets to persist those changes.
+
+Of course, buckets can also be used for ad-hoc state persistence of any kind
+by other parts of your application. The possibilities are extensive!
+
+<hr />
+
+That concludes a brief run-through of some of the key aspects of Orbit. Please
+continue reading the guides to gain a deeper understanding of how Orbit works
+and how to make the most of it.
