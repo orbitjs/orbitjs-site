@@ -181,9 +181,7 @@ store.query(q => q.findRecords('planet')
                   .page({ offset: 0, limit: 10 }))
 ```
 
-Want to experiment? See [Part 1 of this example in WebpackBin](https://www.webpackbin.com/bins/-KlhieRJgT5kLmCf8RAQ).
-
-### Synchronous vs. Asynchronous Queries
+### Querying a store's cache synchronously
 
 Note that `store.query` is asynchronous and thus returns results wrapped in a
 promise. This may seem strange at first because the store's data is "in memory".
@@ -199,6 +197,8 @@ let planets = store.cache.query(q => q.findRecords('planet').sort('name'));
 However, by querying the cache instead of the store, you're not allowing other
 sources to participate in the fulfillment of the query. Continue reading to
 understand how requests to sources can be "coordinated".
+
+Want to experiment? See [Part 1 of this example in WebpackBin](https://www.webpackbin.com/bins/-KlhieRJgT5kLmCf8RAQ).
 
 ## Defining a backup source
 
