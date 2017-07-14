@@ -186,7 +186,7 @@ In this instance, we're telling a source named `remote` (let's say it's a
 result in a server response that includes contacts together with their related
 phone numbers.
 
-## Querying a store's cache synchronously
+## Querying a store's cache
 
 Note that `store.query` is asynchronous and thus returns results wrapped in a
 promise. This may seem strange at first because the store's data is "in memory".
@@ -199,5 +199,7 @@ For example:
 let planets = store.cache.query(q => q.findRecords('planet').sort('name'));
 ```
 
-However, by querying the cache instead of the store, you're not allowing other
-sources to participate in the fulfillment of the query.
+> By querying the cache instead of the store, you're not allowing other
+sources to participate in the fulfillment of the query. If you want to
+coordinate queries across multiple sources, it's critical to make requests
+directly on the store.
