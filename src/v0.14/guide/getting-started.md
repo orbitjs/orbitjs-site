@@ -183,6 +183,23 @@ store.query(q => q.findRecords('planet')
 
 Want to experiment? See [Part 1 of this example in WebpackBin](https://www.webpackbin.com/bins/-KlhieRJgT5kLmCf8RAQ).
 
+### Synchronous vs. Asynchronous Queries
+
+Note that `store.query` is asynchronous and thus returns results wrapped in a
+promise. This may seem strange at first because the store's data is "in memory".
+In fact, if you want to just "peek" into the contents of the store's memory,
+you can issue the same queries synchronously against the store's `Cache`.
+For example:
+
+```javascript
+// Results will be returned synchronously by querying the cache
+let planets = store.cache.query(q => q.findRecords('planet').sort('name'));
+```
+
+However, by querying the cache instead of the store, you're not allowing other
+sources to participate in the fulfillment of the query. Continue reading to
+understand how requests to sources can be "coordinated".
+
 ## Defining a backup source
 
 Our in-memory data store is quite isolated at the moment. If a scientist is
