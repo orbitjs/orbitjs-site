@@ -2,9 +2,6 @@
 @import "_header"
 @import '_sidebar'
 
-$width = 900px
-$space = 50px
-
 body
     background-color #fff
 
@@ -75,9 +72,6 @@ body
 
 #tour
     background-color #fff
-    .inner
-        max-width $width
-        margin 0 auto
     section
         width 100%
         display inline-block
@@ -87,15 +81,10 @@ body
             font-size 2rem
             color #555
         .image
-            float left
-            width 300px
             img
                 max-width 100%
                 border 1px solid #ccc
         .details
-            float left
-            width 500px
-            margin-left 2rem
             font-size 1.2rem
         .centered
             display inline-block
@@ -141,11 +130,9 @@ body
 
 #footer
     padding 20px 0
-    color #fff
     text-align center
     a
         font-weight 700
-        color #fff
     .social-buttons
         list-style-type none
         padding 0
@@ -153,6 +140,22 @@ body
             display inline-block
             vertical-align middle
             margin 0 8px
+
+@media screen and (min-width: $width)
+    #tour
+        .inner
+            max-width $width
+            margin 0 auto
+        .details
+            float left
+            width 500px
+            margin-left 2rem
+        .image
+            float left
+            width 300px
+            img
+                max-width 100%
+                border 1px solid #ccc
 
 @media screen and (max-width: $width)
     body
@@ -171,13 +174,17 @@ body
         .button
             font-size .9em
     #tour
+        .inner
+            width 100%
         section
             text-align center
             .image, .details
                 float none
                 text-align center
-                width 100%
                 padding 0
+                margin 0
             .image
                 margin-bottom 1rem
-
+                width 100%
+            h3, .details
+                padding 1.5rem

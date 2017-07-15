@@ -12,10 +12,6 @@ body
     &.docs
         padding-top: $header-height
 
-@media screen and (max-width: 900px)
-    body.docs
-        padding-top: 0
-
 a
     text-decoration none
     color $medium
@@ -133,14 +129,6 @@ a.button
         margin-bottom 5px
     img
         width 125px
-    // .carbon-img, .carbon-text
-    //     display block
-    //     margin-bottom 6px
-    //     font-weight normal
-    //     color $medium
-    // .carbon-poweredby
-    //     color #aaa
-    //     font-weight normal
 
 #nav
     .nav-link
@@ -209,7 +197,6 @@ a.button
         background-image: linear-gradient(to bottom, #eee 0, #ddd 100%)
 
 .medium-pic
-    width: 250px
     height: 187px
     border: 1px solid #ccc
 
@@ -223,3 +210,10 @@ a.button
 
 .clearfix
     clear both
+
+@media screen and (max-width: $width)
+    body.docs
+        padding-top: 0
+
+    .medium-pic
+        height: 130px
