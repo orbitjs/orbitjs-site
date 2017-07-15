@@ -197,7 +197,7 @@ a.button
         background-image: linear-gradient(to bottom, #eee 0, #ddd 100%)
 
 .medium-pic
-    height: 145px
+    width: 250px
     border: 1px solid #ccc
 
 .left-pic
@@ -216,4 +216,11 @@ a.button
     body.docs
         padding-top: 0
     .medium-pic
-        height: 110px
+        width: 200px
+
+@media screen and (max-width: 500px)
+    .medium-pic
+        width: 100%
+    .right-pic, .left-pic
+        float: none
+        margin: 1rem 0
