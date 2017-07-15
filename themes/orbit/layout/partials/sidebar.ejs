@@ -3,17 +3,18 @@
         <%- partial('partials/main_menu', { context: 'sidebar' }) %>
     </ul>
     <div class="list">
+        <h2>
+            Guide
+            <select class="version-select">
+                <% config.versions.all.forEach(function(v) { %>
+                <option value="<%- v %>" <%= page.version == v ? 'selected' : null %> >v<%- v %></option>
+                <% }) %>
+            </select>
+        </h2>
         <div id="donate" style="margin-bottom: 20px">
             <img src="/images/paypal.png">
             <a href="/sponsor">Sponsor Orbit.js</a>
         </div>
-        <h2>
-            <select class="version-select">
-                <% config.versions.all.forEach(function(v) { %>
-                <option value="<%- v %>" <%= page.version == v ? 'selected' : null %> ><%- v %></option>
-                <% }) %>
-            </select>
-        </h2>
         <ul class="menu-root">
             <% version = page.version %>
             <% search = (version === null ? {type: type} : {type: type, version: version} ) %>
