@@ -47,43 +47,43 @@ web applications, including:
 In order to meet these ambitious goals, Orbit embraces a set of basic
 constraints related to data sources and interactions between them.
 
-<img src="/images/concepts/disparate-sources.png" class="medium-pic right-pic" />
-
 ### Disparate sources
+
+<img src="/images/concepts/disparate-sources.png" class="medium-pic right-pic" />
 
 Any number of data sources of varying types and faculties may be required to
 build any given web application.
 
 <div class="clearfix"></div>
 
-<img src="/images/concepts/disparate-data.png" class="medium-pic right-pic" />
-
 ### Disparate data
+
+<img src="/images/concepts/disparate-data.png" class="medium-pic right-pic" />
 
 Sources of data vary widely in how they internally represent and access that
 data.
 
 <div class="clearfix"></div>
 
-<img src="/images/concepts/common-interfaces.png" class="medium-pic right-pic" />
-
 ### Compatible interfaces
+
+<img src="/images/concepts/common-interfaces.png" class="medium-pic right-pic" />
 
 Communication between sources must happen using a compatible set of interfaces.
 
 <div class="clearfix"></div>
 
-<img src="/images/concepts/normalized-data.png" class="medium-pic right-pic" />
-
 ### Normalized data
+
+<img src="/images/concepts/normalized-data.png" class="medium-pic right-pic" />
 
 Data that flows between sources must be normalized to a shared schema.
 
 <div class="clearfix"></div>
 
-<img src="/images/concepts/evented-connections.png" class="medium-pic right-pic" />
-
 ### Notifications
+
+<img src="/images/concepts/evented-connections.png" class="medium-pic right-pic" />
 
 Sources need a notification system through which changes can be
 observed. Changes in one source must be able to trigger changes in other
@@ -91,9 +91,9 @@ sources.
 
 <div class="clearfix"></div>
 
-<img src="/images/concepts/flow-control.png" class="medium-pic right-pic" />
-
 ### Flow control
+
+<img src="/images/concepts/flow-control.png" class="medium-pic right-pic" />
 
 Data flow across sources must be configurable. Flows can be _optimistic_
 (successful regardless of their impact) or _pessimistic_ (blocked until
@@ -101,9 +101,9 @@ dependent changes have resolved).
 
 <div class="clearfix"></div>
 
-<img src="/images/concepts/change-tracking.png" class="medium-pic right-pic" />
-
 ### Change tracking
+
+<img src="/images/concepts/change-tracking.png" class="medium-pic right-pic" />
 
 Mutations, and not just the effects of mutations, must be trackable to allow
 changes to be logged, diff'd, sync’d, and even reverted.
