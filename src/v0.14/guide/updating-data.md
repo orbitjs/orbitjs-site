@@ -1,6 +1,6 @@
 title: Updating data
 type: guide
-order: 20
+order: 5
 version: 0.14
 ---
 

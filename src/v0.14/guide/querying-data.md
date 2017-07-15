@@ -1,6 +1,6 @@
 title: Querying data
 type: guide
-order: 21
+order: 6
 version: 0.14
 ---
 

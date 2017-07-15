@@ -1,5 +1,5 @@
 title: Coordination
 type: guide
-order: 31
+order: 9
 version: 0.14
 ---

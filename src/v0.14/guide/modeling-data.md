@@ -1,6 +1,6 @@
 title: Modeling data
 type: guide
-order: 4
+order: 3
 version: 0.14
 ---
 
