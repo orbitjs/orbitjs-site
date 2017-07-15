@@ -14,3 +14,6 @@ Tasks and queues are primitives contained in `@orbit/core`. Although you'll
 typically only work with tasks indirectly, understanding how they work can
 help you better understand and troubleshoot Orbit applications in general.
 
+<hr />
+
+More coming soon!
