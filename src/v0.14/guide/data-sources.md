@@ -139,6 +139,41 @@ sources:
 * `Syncable` - Applies a transform or transforms to a source via a `sync`
   method.
 
+### Events
+
+All of the interfaces above emit events that share a common pattern. For an
+interface with a given method `x`, the following events will be emitted:
+`beforeX`, `x`, and `xFail`. For example, updatable sources have an `update`
+method and can emit `beforeUpdate`, `update`, and `updateFail` events.
+
+In addition, any mutations caused by calling `x` will also be emitted with the
+general `transform` event.
+
+Processing occurs as follows (feel free to substitute `update`, `query`, etc.
+for `x`):
+
+1. `x` is called on a source.
+
+2. The `beforeX` event is emitted by the source. Any promises that are returned
+   from listeners will be settled serially. Any errors encountered will prevent
+   further processing and cause the source to emit the `xFail` event.
+
+3. `x` is processed internally by the source. Any errors encountered will
+   prevent further processing and cause the source to emit the `xFail` event.
+
+4. The `transform` event is emitted if `x` resulted in any mutations. Any
+   promises that are returned from listeners will be settled serially. Errors
+   will NOT prevent further processing.
+
+5. The `x` event is emitted. Any promises that are returned
+   from listeners will be settled serially. Errors will NOT prevent further
+   processing.
+
+There's a clear turning point after `x` has been processed internally by the
+source. While listeners can block processing of `x` in the `beforeX` event by
+returning a promise that fails, after `x` has been processed such failures will
+be ignored by the emitter.
+
 ### Data flows
 
 The `Updatable`, `Queryable`, `Pushable`, and `Pullable` interfaces all
@@ -159,4 +194,3 @@ used to coordinate data requests and synchronization between sources.
 > See guides that cover [querying data](./querying-data.html),
   [updating data](./updating-data.html), and
   [configuring coordination strategies](./coordination.html).
-
