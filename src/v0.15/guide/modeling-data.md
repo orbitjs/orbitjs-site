@@ -35,7 +35,7 @@ Here's an example record that represents a planet:
     moons: {
       data: [
         { type: 'moon', id: 'theMoon' }
-      }
+      ]
     }
   }
 }

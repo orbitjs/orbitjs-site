@@ -19,7 +19,7 @@ The `QueryExpression` interface requires one member:
 
 The other members of a `QueryExpression` are specific to the `op`.
 
-The following standard query expressions are defined in `@orbit/data`"
+The following standard query expressions are defined in `@orbit/data`:
 
 ```typescript
 interface QueryExpression {
