@@ -4,8 +4,8 @@
 
 # Orbit versions
 versions:
-  current: 0.14
-  all: ["0.14"]
+  current: 0.15
+  all: ["0.15"]
 
 # Site
 title: Orbit.js

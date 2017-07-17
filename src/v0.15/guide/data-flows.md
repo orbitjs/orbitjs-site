@@ -1,7 +1,7 @@
 title: Data flows
 type: guide
 order: 8
-version: 0.14
+version: 0.15
 ---
 
 Orbit enables the coordination of many independent sources of data, each of
@@ -29,12 +29,12 @@ flows:
   * The `Syncable` interface participates in the sync flow.
 
 > "Request up, sync down" is a variant of the "data down, actions up" mnemonic
-popularized in the Ember.js community. In fact, most frontend frameworks adopt
-a similar pattern to handling actions and returning data. Orbit fits well
-with these patterns: an action triggered by a user can spawn an Orbit
-"request", which can lead to responses that "sync" data back down, typically
-ending in an update to a view. In this way, "request up, sync down" can be
-seen as a continuation of the "data down, actions up" pattern.
+popularized in the [Ember.js](https://emberjs.com/) community. In fact, most
+frontend frameworks adopt a similar pattern for handling actions and returning
+data. Orbit fits well with these patterns: an action triggered by a user can
+spawn an Orbit "request", which can lead to responses that "sync" data back
+down, typically ending in an update to a view. In this way, "request up, sync
+down" can be seen as a continuation of the "data down, actions up" pattern.
 
 ## Coordinating sources
 

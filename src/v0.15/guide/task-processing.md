@@ -1,7 +1,7 @@
 title: Task processing
 type: guide
 order: 7
-version: 0.14
+version: 0.15
 ---
 
 Tasks and queues are primitives contained in `@orbit/core` that are useful for

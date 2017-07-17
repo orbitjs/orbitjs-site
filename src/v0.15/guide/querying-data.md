@@ -1,7 +1,7 @@
 title: Querying data
 type: guide
 order: 6
-version: 0.14
+version: 0.15
 ---
 
 The contents of a source can be interrogated using a `Query`. Orbit comes with a
