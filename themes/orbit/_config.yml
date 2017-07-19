@@ -1,4 +1,4 @@
-site_description: "Orbit.js "
+site_description: "A framework for orchestrating access, transformation, and synchronization between data sources."
 google_analytics: UA-1632329-6
 root_domain: http://orbitjs.com
 package_version: 0.9
