@@ -95,45 +95,40 @@ isolation from its parent, and optionally "merge" those changes back.
 
 Let's look at an example of store forking and merging:
 
-```javascript
+```typescript
 // start by adding two planets and a moon to the store
-store.update(t => [
+await store.update(t => [
   t.addRecord(earth),
   t.addRecord(venus),
   t.addRecord(theMoon)
-])
-  .then(() => store.query(q => q.findRecords('planet').sort('name')))
-  .then(planets => {
-    console.log('original planets');
-    console.log(planets);
+]);
 
-    // fork the store
-    forkedStore = store.fork();
+let planets = await store.query(q => q.findRecords('planet').sort('name')));
+console.log('original planets');
+console.log(planets);
 
-    // add a planet and moons to the fork
-    return forkedStore.update(t => [
-      t.addRecord(jupiter),
-      t.addRecord(io),
-      t.addRecord(europa)
-    ]);
-  })
-  // query the planets in the forked store
-  .then(() => forkedStore.query(q => q.findRecords('planet').sort('name')))
-  .then(planets => {
-    console.log('planets in fork');
-    console.log(planets);
-  })
-  // merge the forked store back into the original store
-  .then(() => store.merge(forkedStore)
-  // query the planets in the original store
-  .then(() => store.query(q => q.findRecords('planet').sort('name'))))
-  .then(planets => {
-    console.log('merged planets');
-    console.log(planets);
-  })
-  .catch(e => {
-    console.error(e);
-  });
+// fork the store
+forkedStore = store.fork();
+
+// add a planet and moons to the fork
+await forkedStore.update(t => [
+  t.addRecord(jupiter),
+  t.addRecord(io),
+  t.addRecord(europa)
+]);
+
+// query the planets in the forked store
+planets = await forkedStore.query(q => q.findRecords('planet').sort('name')));
+console.log('planets in fork');
+console.log(planets);
+
+// merge the forked store back into the original store
+await store.merge(forkedStore);
+
+// query the planets in the original store
+planets = await store.query(q => q.findRecords('planet').sort('name'))))
+console.log('merged planets');
+console.log(planets);
 ```
 
 It's important to note a few things about store forking and merging:
