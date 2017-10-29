@@ -64,7 +64,7 @@ All changes to a cache will be emitted as `patch` events. These events include
 the `Operation` that was applied as well as any data returned.
 
 Its important to recognize that `patch` events will be emitted for _EVERY_
-change, including those mad by operation processors. Therefore, if you need
+change, including those made by operation processors. Therefore, if you need
 a high fidelity log of changes to a store, observe its cache's `patch` events.
 
 ### Querying cache data
