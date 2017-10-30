@@ -99,7 +99,7 @@ const theMoon = {
 };
 
 store.update(t => [
-  t.addRecord(venus)
+  t.addRecord(venus),
   t.addRecord(earth),
   t.addRecord(theMoon)
 ])
