@@ -73,7 +73,7 @@ will be applied to all of the coordinator's strategies:
 ```javascript
 import { LogLevel } from '@orbit/coordinator';
 
-coordinator.activate(LogLevel.Info)
+coordinator.activate({ logLevel: LogLevel.Info })
   .then(() => {
     console.log('Coordinator will be chatty');
   });
