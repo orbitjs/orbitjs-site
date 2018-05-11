@@ -202,8 +202,9 @@ to, say, only backup certain types of data to browser storage.
 
 ### Event logging strategies
 
-An event logging strategy can be applied to observe events on sources. By
-default, all events will be logged on all sources registered to a coordinator:
+An event logging strategy can be applied to log events on all sources to the
+console. By default, all events will be logged on all sources registered to a
+coordinator:
 
 ```javascript
 import { EventLoggingStrategy } from '@orbit/coordinator';
@@ -237,10 +238,12 @@ the coordinator is activated.
 
 ### Log truncation strategies
 
-As changes are applied to sources, their transform logs grow in size. A
-log truncation strategy will keep the size in check by observing the sources
-associated with the strategy and truncating their logs when a common
-transform has been applied to them all.
+Sources have another kind of log as well: a transform log, which tracks
+transforms that are applied. As changes are applied to sources, their transform
+logs grow in size. A log truncation strategy will keep the size of transform
+logs in check. It observes the sources associated with the strategy and
+truncates their transform logs when a common transform has been applied to them
+all.
 
 To add a log truncation strategy that applies to all sources:
 
