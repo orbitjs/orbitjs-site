@@ -103,12 +103,11 @@ await store.update(t => [
   t.addRecord(theMoon)
 ]);
 
-let planets = await store.query(q => q.findRecords('planet').sort('name')));
-console.log('original planets');
-console.log(planets);
+let planets = await store.query(q => q.findRecords("planet").sort("name"));
+console.log("original planets", planets);
 
 // fork the store
-forkedStore = store.fork();
+let forkedStore = store.fork();
 
 // add a planet and moons to the fork
 await forkedStore.update(t => [
@@ -118,17 +117,15 @@ await forkedStore.update(t => [
 ]);
 
 // query the planets in the forked store
-planets = await forkedStore.query(q => q.findRecords('planet').sort('name')));
-console.log('planets in fork');
-console.log(planets);
+planets = await forkedStore.query(q => q.findRecords("planet").sort("name"));
+console.log("planets in fork", planets);
 
 // merge the forked store back into the original store
 await store.merge(forkedStore);
 
 // query the planets in the original store
-planets = await store.query(q => q.findRecords('planet').sort('name'))))
-console.log('merged planets');
-console.log(planets);
+planets = await store.query(q => q.findRecords("planet").sort("name"));
+console.log("merged planets", planets);
 ```
 
 It's important to note a few things about store forking and merging:
@@ -145,4 +142,5 @@ It's important to note a few things about store forking and merging:
 <hr />
 
 Want to experiment with store forking and merging?
-See [this example in WebpackBin](https://www.webpackbin.com/bins/-KpHJ3tj_Lh-EUZDRdMz).
+
+See [this example in CodeSandbox](https://codesandbox.io/s/40lo886nn7?previewwindow=console).

@@ -201,7 +201,8 @@ requests to sources can be "coordinated".
 <hr />
 
 Want to experiment with some of the concepts presented so far?
-See [Part 1 of this example in WebpackBin](https://www.webpackbin.com/bins/-KlhieRJgT5kLmCf8RAQ).
+
+See [Part 1 of this example in CodeSandbox](https://codesandbox.io/s/0vn2w7nzn?previewwindow=console).
 
 ## Defining a backup source
 
@@ -332,7 +333,8 @@ browser refreshes.
 <hr />
 
 Want to experiment more?
-See [Part 2 of this example in WebpackBin](https://www.webpackbin.com/bins/-Kn9vdvtf4rUeJBUJAXb).
+
+See [Part 2 of this example in CodeSandbox](https://codesandbox.io/s/rr0lkz3rxq??previewwindow=console).
 
 ## Communicating with a server
 
