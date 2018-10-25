@@ -146,6 +146,10 @@ store.query(q => q.findRecords('planet')
                   .filter({ attribute: 'classification', value: 'terrestrial' },
                           { attribute: 'mass', op: 'gt', value: 987654321 })
 
+// Filter by related records
+store.query(q => q.findRecords('moons')
+                  .filter({ relation: 'planet', record: { type: 'planet', id: 'earth' }})
+
 // Paginate by offset and limit
 store.query(q => q.findRecords('planet')
                   .page({ offset: 0, limit: 10 }));
@@ -156,6 +160,21 @@ store.query(q => q.findRecords('planet')
                   .sort('name')
                   .page({ offset: 0, limit: 10 }));
 ```
+
+#### findRelatedRecords vs findRecords.filter({ relation: ..., record: ... })
+If you're using the default settings for JSONAPISource, `findRelatedRecords` and `findRecords.filter(...)` produce very different URLs.
+
+```
+const relatedRecordId = { type: 'planet', id: 'earth' };
+
+// This fetches from: /planets/earth/moons
+store.query(q => q.findRelatedRecords(relatedRecordId, 'moons'));
+
+// This fetches from: /moons?filter[planet]=earth
+store.query(q => q.findRecords('moon')).filter({ relation: 'planet', record: relatedRecordId });
+```
+
+Besides the different urls **`findRelatedRecords` does not support sorting, filtering, or pagination**. If you want that functionality, `findRecords` and filter on the relation.
 
 ### Query options
 
