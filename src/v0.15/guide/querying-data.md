@@ -150,6 +150,10 @@ store.query(q => q.findRecords('planet')
 store.query(q => q.findRecords('moons')
                   .filter({ relation: 'planet', record: { type: 'planet', id: 'earth' }})
 
+// Filter by multiple related records
+store.query(q => q.findRecords('moons')
+                  .filter({ relation: 'planet', record: [{ type: 'planet', id: 'earth' }, { type: 'planet', id: 'jupiter'}]})                  
+
 // Paginate by offset and limit
 store.query(q => q.findRecords('planet')
                   .page({ offset: 0, limit: 10 }));
