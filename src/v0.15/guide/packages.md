@@ -11,7 +11,7 @@ Orbit is distributed on npm through the
 
 Orbit consists of the following core libraries:
 
-* [@orbit/core](https://github.com/orbitjs/orbit/packages/@orbit/core) - A core
+* [@orbit/core](https://www.npmjs.com/package/@orbit/core) - A core
 set of primitives for performing, tracking, and responding to asynchronous
 tasks, including:
 
@@ -25,7 +25,7 @@ tasks, including:
 
   * A bucket interface for persisting state. Used by logs and queues.
 
-* [@orbit/data](https://github.com/orbitjs/orbit/packages/@orbit/data) - Applies
+* [@orbit/data](https://www.npmjs.com/package/@orbit/data) - Applies
 the core Orbit primitives to data sources. Includes the following elements:
 
   * A schema for defining models, including attributes and relationships.
@@ -44,31 +44,31 @@ the core Orbit primitives to data sources. Includes the following elements:
     and/or `updatable` - each decorator provides a unique interface that allows
     for transforms and queries to be applied as appropriate.
 
-* [@orbit/coordinator](https://github.com/orbitjs/orbit/packages/@orbit/coordinator) -
+* [@orbit/coordinator](https://www.npmjs.com/package/@orbit/coordinator) -
   A coordinator and set of coordination strategies for managing data flow and
   keeping Orbit Data sources in sync
 
-* [@orbit/utils](https://github.com/orbitjs/orbit/packages/@orbit/utils) - A
+* [@orbit/utils](https://www.npmjs.com/package/@orbit/utils) - A
 common set of utility functions used by Orbit libs.
 
 ## Standard data sources
 
 Orbit provides the following sources for accessing and persisting data:
 
-* [@orbit/store](https://github.com/orbitjs/orbit/packages/@orbit/store) - An
+* [@orbit/store](https://www.npmjs.com/package/@orbit/store) - An
   in-memory data store that supports complex querying and updating. Because
   stores maintain data in immutable data structures, they can be efficiently
   forked. Forked stores can diverge from the master store, and then the changes
   can be merged later.
 
-* [@orbit/jsonapi](https://github.com/orbitjs/orbit/packages/@orbit/jsonapi) -
+* [@orbit/jsonapi](https://www.npmjs.com/package/@orbit/jsonapi) -
   Provides full CRUD support, including complex querying, for a RESTful API that
   conforms to the [JSONAPI](http://jsonapi.org/) specification.
 
-* [@orbit/local-storage](https://github.com/orbitjs/orbit/packages/@orbit/local-storage) -
+* [@orbit/local-storage](https://www.npmjs.com/package/@orbit/local-storage) -
 Persists records to local storage.
 
-* [@orbit/indexeddb](https://github.com/orbitjs/orbit/packages/@orbit/indexeddb) -
+* [@orbit/indexeddb](https://www.npmjs.com/package/@orbit/indexeddb) -
 Persists records to IndexedDB.
 
 These standard sources can provide guidance for building your own custom sources
@@ -79,15 +79,15 @@ as well.
 Buckets are used to persist application state, such as queued requests and
 change logs. Standard buckets include:
 
-* [@orbit/local-storage-bucket](https://github.com/orbitjs/orbit/packages/@orbit/local-storage-bucket) -
+* [@orbit/local-storage-bucket](https://www.npmjs.com/package/@orbit/local-storage-bucket) -
 Persists state to local storage.
 
-* [@orbit/indexeddb-bucket](https://github.com/orbitjs/orbit/packages/@orbit/indexeddb-bucket) -
+* [@orbit/indexeddb-bucket](https://www.npmjs.com/package/@orbit/indexeddb-bucket) -
 Persists state to IndexedDB.
 
 ## Additional libraries
 
 Additional libraries related to Orbit include:
 
-* [ember-orbit](https://github.com/orbitjs/ember-orbit) - An Ember.js data
+* [ember-orbit](https://www.npmjs.com/package/ember-orbit) - An Ember.js data
   layer heavily inspired by Ember Data.
