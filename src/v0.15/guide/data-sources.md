@@ -10,10 +10,10 @@ broadcast changes.
 
 Orbit includes a number of "standard" sources:
 
-* `@orbit/store` - an in-memory store
-* `@orbit/jsonapi` - a JSON API client
-* `@orbit/indexeddb` - for accessing IndexedDB databases
-* `@orbit/local-storage` - for accessing LocalStorage
+* [@orbit/store](https://www.npmjs.com/package/@orbit/store) - an in-memory store
+* [@orbit/jsonapi](https://www.npmjs.com/package/@orbit/jsonapi) - a JSON API client
+* [@orbit/indexeddb](https://www.npmjs.com/package/@orbit/indexeddb) - for accessing IndexedDB databases
+* [@orbit/local-storage](https://www.npmjs.com/package/@orbit/local-storage) - for accessing LocalStorage
 
 Custom sources can also be written to access to virtually any source of data.
 
