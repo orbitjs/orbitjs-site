@@ -6,6 +6,8 @@
 
 <a href="http://www.cerebris.com" alt="Cerebris"><img src="/logos/cerebris.png" style="width: 110px"/></a>
 
+<a href="https://exivity.com/" alt="Exivity"><img src="/logos/exivity.svg" style="width: 110px"/></a>
+
 ## Why sponsor?
 
 Orbit.js was initially developed by [Dan Gebhardt](https://twitter.com/dgeb) for use on projects at [Cerebris](http://www.cerebris.com), the small company Dan runs with his brother [Larry Gebhardt](https://twitter.com/larrygebhardt).
