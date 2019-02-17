@@ -33,23 +33,12 @@ body
         width 178px
         height 178px
         margin-bottom 15px
-    .install-command
-        padding 1em 1.5em
-        margin 2em 0
-        display none //inline-block
-        background #ffffffaa
-        border 3px solid lighten($light, 10%)
-        font-family Source Code Pro,Monaco,Menlo,Consolas,monospace
-        :before
-            content '$'
-            padding-right 0.7em
-            opacity 0.5
     h1
         font-weight bold
         margin 0
         font-size 3.5em
         color #fff
-        text-shadow 5px 5px 8px #333
+        text-shadow 2px 2px 4px #333
     h2
         font-family $logo-font
         font-weight 500
@@ -69,33 +58,174 @@ body
             vertical-align middle
             margin 0 5px
 
+a.learn-more
+    color: #F5A623
+    transition: all 250ms ease-out
+    &:hover
+        color: #EF4D00
 
-#tour
+    i.fas
+        padding-left: 4px
+        font-size: .8em
+
+.tour
     background-color #fff
-    section
-        width 100%
-        display inline-block
-        box-sizing border-box
-        margin-bottom 2rem
-        h3
-            font-size 2rem
-            color #555
-        .image
+    max-width: 1300px
+    margin: 0 auto
+    padding-bottom: 80px
+
+    &__masthead
+        padding-top: 10px
+        @media (min-width: $media-md)
+            padding-top: 12px
+        @media (min-width: $media-lg)
+            padding-top: 15px
+        @media (min-width: $media-xl)
+            padding-top: 20px
+            display: flex
+        @media (min-width: $media-xxl)
+            padding-top: 25px
+
+        &__intro
+            padding: 0 30px 20px 30px
+            @media (min-width: $media-xl)
+                padding: 0 30px
+                flex: 0 0 35%
+            @media (min-width: $media-xxl)
+                padding: 0 30px
+                flex: 0 0 40%
+
+            h2
+                margin: 0
+                padding: 0 0 5px 0
+
+            p
+                font-size: 1.2em
+                color: #666
+
+        &__code-example
+            padding: 0 30px
+            @media (min-width: $media-lg)
+                flex: 0 0 51%
+
+            pre
+                padding: 20px 30px
+                border-radius: 4px
+                background: #f9f8f6
+
+                .comment
+                    color: #999
+                .string
+                    color: #338706
+                .number
+                    color: #DE6B07
+                .function
+                    color: #098EBC
+                .object
+                    color: #BC095F
+
+    &__highlight
+        background: #FEFFC0
+
+    &__cards-container
+        padding-top: 30px
+
+        @media (min-width: $media-md)
+            padding-top: 10px
+        @media (min-width: $media-lg)
+            padding-top: 30px
+            display: flex
+            justify-content: space-around
+        @media (min-width: $media-xl)
+            padding-top: 40px
+        @media (min-width: $media-xxl)
+            padding-top: 50px
+
+    &__card
+        border-radius: 2px
+        @media (min-width: $media-md)
+            padding: 30px 30px 0 30px
+        @media (min-width: $media-lg)
+            padding: 0 10px
+            flex: 0 0 25%
+        @media (min-width: $media-xl)
+            padding: 30px
+            box-shadow: 1px 1px 45px 0px rgba(0, 0, 0, .1)
+
+        &__image
+            background: #F5F4F0
+            text-align: center
+            border-left: 3px solid #E4E3DE
+            padding: 10px 0
+            @media (min-width: $media-lg)
+                margin-bottom: 30px
+                border-left: 0
+
             img
-                max-width 100%
-                border 1px solid #ccc
-        .details
-            font-size 1.2rem
-        .centered
-            display inline-block
-            vertical-align top
-            text-align center
-            width 100%
+                height: 120px
+                @media (min-width: $media-md)
+                    height: 160px
+                @media (min-width: $media-lg)
+                    height: 180px
+                @media (min-width: $media-xl)
+                    height: 200px
+
+        &__details
+            padding: 30px 30px 10px 30px
+            border-left: 3px solid #f5f4f0
+            @media (min-width: $media-lg)
+                border-left: 0
+                padding: 0
+            @media (min-width: $media-xl)
+                padding: 15px
+                border-left: 0
+
+            h4
+                margin: 0
+                padding: 0 0 20px 0
+                font-size: 1.1em
+                color: #333
+
+            p
+                margin: 0 0 20px 0
+                color: #666
+
+    &__stage-two
+        &__container
+            justify-content: space-around
+            padding: 0
+            @media (min-width: $media-md)
+                padding: 10px 0 0 0
+            @media (min-width: $media-lg)
+                display: flex
+                padding: 40px 0 0 0
+            @media (min-width: $media-xl)
+                padding: 60px 0 0 0
+
+        &__card
+            padding: 30px
+            flex: 0 0 38%
+            display: flex
+
+            h4
+                margin: 0
+                padding: 0 0 20px 0
+                font-size: 1.1em
+                color: #333
+
+            p
+                margin: 0 0 20px 0
+                color: #666
+
+            &__image
+                width: 100px
+                padding-top: 20px
+                margin-right: 50px
 
 #sponsors
     text-align center
     padding 35px 40px 45px
-    background-color #f6f6f6
+    background-color #F5F4F0
     .inner
         max-width 700px
         margin 0px auto
@@ -131,7 +261,7 @@ body
 #footer
     padding 20px 0
     text-align center
-    background #ccc
+    background #E1DFD9
     a
         font-weight 700
     .social-buttons
@@ -141,22 +271,6 @@ body
             display inline-block
             vertical-align middle
             margin 0 8px
-
-@media screen and (min-width: $width)
-    #tour
-        .inner
-            max-width $width
-            margin 0 auto
-        .details
-            float left
-            width 500px
-            margin-left 2rem
-        .image
-            float left
-            width 300px
-            img
-                max-width 100%
-                border 1px solid #ccc
 
 @media screen and (max-width: $width)
     body
@@ -174,18 +288,3 @@ body
             font-size 2.5em
         .button
             font-size .9em
-    #tour
-        .inner
-            width 100%
-        section
-            text-align center
-            .image, .details
-                float none
-                text-align center
-                padding 0
-                margin 0
-            .image
-                margin-bottom 1rem
-                width 100%
-            h3, .details
-                padding 1.5rem
