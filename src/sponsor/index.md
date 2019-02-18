@@ -6,7 +6,7 @@
 
 <a href="http://www.cerebris.com" alt="Cerebris"><img src="/logos/cerebris.png" style="width: 110px"/></a>
 
-<a href="https://exivity.com/" alt="Exivity"><img src="/logos/exivity.svg" style="width: 110px"/></a>
+<a href="https://exivity.com/" alt="Exivity"><img src="/logos/exivity.svg" style="width: 100px"/></a>
 
 ## Why sponsor?
 
