@@ -1,3 +1,4 @@
+
 <div class="sidebar">
   <ul class="main-menu">
     <%- partial('partials/main_menu', { context: 'sidebar' }) %>
@@ -11,9 +12,6 @@
     </div>
     <div class="centered">
       <h1>Orchestrate your data.</h1>
-      <div class="install-command">
-        <span class="code">npm install @orbit/data</span>
-      </div>
       <p>
         <a class="button white" href="/v<%= config.versions.current %>/guide/">GET STARTED</a>
       </p>
@@ -21,86 +19,119 @@
   </div>
 </div>
 
-<div id="tour">
+<div class="tour">
   <div class="inner">
-    <section>
-      <h3>Orbit is a framework for orchestrating access, transformation,
-        and synchronization between data sources.</h3>
+    <section class="tour__masthead">
+      <div class="tour__masthead__intro">
+        <h2>More than Just Another ORM</h2>
+        <p>Orbit can work in the browser and on the server,
+          offline and online, to manage whatever sources of data your app needs.</p>
+        <p>Orbit's more than just another ORM, it's a flexible and composable data framework.</p>
+      </div>
+      <div class="tour__masthead__code-example">
+        <%- partial('partials/code_sample') %>
+        <div class="text-right">
+          <a href="/v<%= config.versions.current %>/guide/" class="learn-more" style="padding-right: 5px;">
+            learn more <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
     </section>
 
-    <section>
-      <div class="image">
-        <img src="/images/tour/normalized-data.png" alt="Disparate data">
-      </div>
-      <div class="details">
-        <p>Your application may need to interact with data from a variety of
-          sources: a REST server, a WebSocket stream, an
-          IndexedDB backup, an in-memory store, etc.</p>
+    <div class="tour__cards-container">
+      <section class="tour__card">
+        <div class="tour__card__image">
+          <img src="/images/tour/normalized-data.png" alt="Disparate data">
+        </div>
+        <div class="tour__card__details">
+          <h4>Coordinate Multi-Source Data Flows</h4>
+          <p>Your application may need to interact with data from a variety of
+            sources: a REST server, a WebSocket stream, an
+            IndexedDB backup, an in-memory store, etc.</p>
+          <p>Orbit can coordinate data flows across any number of sources
+            through a standard set of interfaces using normalized data structures.</p>
+          <a href="/v<%= config.versions.current %>/guide/" class="learn-more">
+            learn more <i class="fas fa-arrow-right">
+          </a>
+        </div>
+      </section>
 
-        <p>Orbit can coordinate data flows across any number of sources
-        through a standard set of interfaces using normalized data structures.</p>
-      </dd>
-    </section>
+      <section class="tour__card">
+        <div class="tour__card__image">
+          <img src="/images/tour/change-tracking.png" alt="Deterministic tracking">
+        </div>
+        <div class="tour__card__details">
+          <h4>Maintain Data Correctness</h4>
+          <p>Data correctness is vital to user trust, so you need a
+            deterministic approach to manage it.</p>
+          <p>Orbit uses a Git-like approach to track changes across data sources.
+            Changes are expressed as "transforms", which are similar to Git commits.
+            Logs provide a per-source history. Like Git repos, sources can be
+            diffed, forked, merged, and reset.</p>
+            <a href="/v<%= config.versions.current %>/guide/" class="learn-more">
+              learn more <i class="fas fa-arrow-right">
+            </a>
+        </div>
+      </section>
 
-    <section>
-      <div class="image">
-        <img src="/images/tour/change-tracking.png" alt="Deterministic tracking">
-      </div>
-      <div class="details">
-        <p>Data correctness is vital to user trust, so you need a
-          deterministic approach to manage it.</p>
-        <p>Orbit uses a Git-like approach to track changes across data sources.
-        Changes are expressed as "transforms", which are similar to Git commits.
-        Logs provide a per-source history. Like Git repos, sources can be
-        diffed, forked, merged, and reset.</p>
-      </div>
-    </section>
-    <section>
-      <div class="image">
-        <img src="/images/tour/connections.png" alt="Connect sources">
-      </div>
-      <div class="details">
-        <p>Not all data should be treated uniformly. Some data is transient,
-        while other data can persist for the life of your app. Some changes
-        should be made pessimistically and be confirmed by a remote server.
-        Other changes can be made optimistically, cached locally, and pushed
-        eventually.</p>
-        <p>Orbit provides coordination strategies which can be customized to
-          the needs of your application.</p>
-      </div>
-    </section>
-    <section>
-      <div class="image">
-        <img src="/images/tour/offline.png" alt="Offline">
-      </div>
-      <div class="details">
-        <p>In an increasingly mobile world, it's ideal to keep applications
-          available even when the Internet is not.</p>
-        <p>Orbit provides the tools needed to build robust offline experiences.
-          Backup your application's state, including data caches, logs, and
-          queues, to browser storage. Query and change local data when offline,
-          while queueing changes for synchronization when online again.</p>
-      </div>
-    </section>
-    <section>
-      <div class="image">
-        <img src="/images/tour/isomorphic.png" alt="Isomorphic">
-      </div>
-      <div class="details">
-        <p>Orbit is isomorphic - it can be run in modern browsers as well
-          as in the Node.js runtime.</p>
-        <p>Orbit is written in
-          <a href="https://www.typescriptlang.org">TypeScript</a>. Its libraries
-          are distributed on npm through the
-          <a href="https://www.npmjs.com/org/orbit">@orbit</a> organization in
-          several module formats and ES language levels.</p>
-      </div>
-    </section>
-    <section>
-      <div class="centered">
-        <a class="button" href="/v<%= config.versions.current %>/guide/">LEARN MORE</a>
-      </div>
-    </section>
+      <section class="tour__card">
+        <div class="tour__card__image">
+          <img src="/images/tour/connections.png" alt="Connect sources">
+        </div>
+        <div class="tour__card__details">
+          <h4>Pessimistic and Optimistic Strategies</h4>
+          <p>Not all data should be treated uniformly. Some data is transient,
+            while other data can persist for the life of your app. Some changes
+            should be made pessimistically and be confirmed by a remote server.
+            Other changes can be made optimistically, cached locally, and pushed
+            eventually.</p>
+          <p>Orbit provides coordination strategies which can be customized to
+            the needs of your application.</p>
+            <a href="/v<%= config.versions.current %>/guide/" class="learn-more">
+              learn more <i class="fas fa-arrow-right">
+            </a>
+        </div>
+      </section>
+    </div>
+
+    <div class="tour__stage-two__container">
+      <section class="tour__stage-two__card">
+        <div class="tour__stage-two__card__image">
+          <img src="/images/tour/failasaur.svg" alt="Offline">
+        </div>
+        <div class="tour__stage-two__card__details">
+          <h4>Offline Data</h4>
+          <p>In an increasingly mobile world, it's ideal to keep applications
+            available even when the Internet is not.</p>
+          <p>Orbit provides the tools needed to build robust offline experiences.
+            Backup your application's state, including data caches, logs, and
+            queues, to browser storage. Query and change local data when offline,
+            while queueing changes for synchronization when online again.</p>
+          <a href="/v<%= config.versions.current %>/guide/" class="learn-more">
+            learn more <i class="fas fa-arrow-right">
+          </a>
+        </div>
+      </section>
+
+      <section class="tour__stage-two__card">
+        <div class="tour__stage-two__card__image">
+          <img src="/images/tour/browsers-and-node.png" alt="Isomorphic" width="100">
+        </div>
+        <div class="tour__stage-two__card__details">
+          <h4>Orbit is Isomorphic</h4>
+          <p>Orbit can be run in modern browsers as well
+            as in the Node.js runtime.</p>
+          <p>Orbit is written in
+            <a href="https://www.typescriptlang.org">TypeScript</a>. Its libraries
+            are distributed on npm through the
+            <a href="https://www.npmjs.com/org/orbit">@orbit</a> organization in
+            several module formats and ES language levels.</p>
+          <a href="/v<%= config.versions.current %>/guide/" class="learn-more">
+            learn more <i class="fas fa-arrow-right">
+          </a>
+        </div>
+      </section>
+    </div>
   </div>
 </div>
 
@@ -122,6 +153,8 @@
   <p>Orbit.js is released under the <a href="https://opensource.org/licenses/MIT" href="_blank">MIT License</a>.
   Copyright &copy; <%- new Date().getFullYear() %> <a href="http://www.cerebris.com">Cerebris Corporation</a>.</p>
 </div>
+
+<!-- <div class="media-size-marker"><i class="number"></div> -->
 
 <script>
 var topScrolled = false

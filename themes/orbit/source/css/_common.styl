@@ -43,6 +43,12 @@ em
 p
     word-spacing 0.05em
 
+.text-center
+    text-align: center
+
+.text-right
+    text-align: right
+
 a.button
     padding 0.75em 2em
     border-radius 0.4em
@@ -224,3 +230,37 @@ a.button
     .right-pic, .left-pic
         float: none
         margin: 1rem 0
+
+.media-size-marker
+    position: fixed
+    bottom: 0
+    left: 0
+    padding: 20px
+    color: #fff
+    border-top-right-radius: 3px
+    font-weight: bold
+
+    @media (min-width: $media-sm)
+        background: #15a2b8
+        .number::before
+            content: "SM"
+
+    @media (min-width: $media-md)
+        background: #dc3545
+        .number::before
+            content: "MD"
+
+    @media (min-width: $media-lg)
+        background: #26a745
+        .number::before
+            content: "LG"
+
+    @media (min-width: $media-xl)
+        background: #037bff
+        .number::before
+            content: "XL"
+
+    @media (min-width: $media-xxl)
+        background: #ffc10a
+        .number::before
+            content: "XXL"
