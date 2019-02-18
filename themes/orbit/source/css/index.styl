@@ -109,9 +109,13 @@ a.learn-more
                 flex: 0 0 51%
 
             pre
-                padding: 20px 30px
-                border-radius: 4px
                 background: #f9f8f6
+                border-radius: 4px
+                overflow: scroll
+                border: 5px solid #f9f8f6
+                padding: 10px
+                @media (min-width: $media-sm)
+                    padding: 15px 20px
 
                 .comment
                     color: #999
@@ -129,7 +133,6 @@ a.learn-more
 
     &__cards-container
         padding-top: 30px
-
         @media (min-width: $media-md)
             padding-top: 10px
         @media (min-width: $media-lg)
