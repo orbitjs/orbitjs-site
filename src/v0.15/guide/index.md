@@ -11,8 +11,8 @@ synchronization between data sources.
 
 Orbit is written in [Typescript](https://www.typescriptlang.org) and distributed
 on [npm](https://www.npmjs.com/org/orbit) as packages containing a variety of
-module formats and ES language levels. Most Orbit packages are isomorphic -
-they can run in modern browsers as well as in the [Node.js](https://nodejs.org/)
+module formats and ES language levels. Most Orbit packages are isomorphic—they
+can run in modern browsers as well as in the [Node.js](https://nodejs.org/)
 runtime.
 
 ## Goals
@@ -130,8 +130,8 @@ characteristics for records of a given type.
 
 Every source of data, from an in-memory store to an IndexedDB database to a REST
 server, is represented as a `Source`. Sources vary widely in their capabilities:
-some may support interfaces that for updating and/or querying records, while
-other sources may simply broadcast changes. Schemas provide sources with an
+some may support interfaces for updating and/or querying records, while other
+sources may simply broadcast changes. Schemas provide sources with an
 understanding of the data they manage.
 
 ### Transform
@@ -139,7 +139,7 @@ understanding of the data they manage.
 A `Transform` is used to represent a set of record mutations, or "operations".
 Each `Operation` represents a single change to a record or relationship (e.g.
 adding a record, updating a field, deleting a relationship, etc.). Transforms
-must be applied atomically - all operations succeed or fail together.
+must be applied atomically—all operations succeed or fail together.
 
 ### Query
 
@@ -190,5 +190,5 @@ upfront "wiring" rather than imperative handlers spread throughout your
 codebase.
 
 Although Orbit does not pretend to absorb all the complexity of writing
-ambitious data-driven applications, it's hoped that Orbit's composeable and
+ambitious data-driven applications, it's hoped that Orbit's composable and
 declarative approach makes it not only attainable but actually enjoyable :)

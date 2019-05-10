@@ -152,7 +152,7 @@ store.query(q => q.findRecords('moons')
 
 // Filter by multiple related records
 store.query(q => q.findRecords('moons')
-                  .filter({ relation: 'planet', records: [{ type: 'planet', id: 'earth' }, { type: 'planet', id: 'jupiter'}]})                  
+                  .filter({ relation: 'planet', records: [{ type: 'planet', id: 'earth' }, { type: 'planet', id: 'jupiter'}]})
 
 // Paginate by offset and limit
 store.query(q => q.findRecords('planet')
@@ -202,7 +202,7 @@ store.query(q => q.findRecords('contact').sort('lastName', 'firstName'), {
 A `label` can be useful for providing an understanding of actions that have been
 queued for processing.
 
-The `sources: ( ${sourceName}: sourceSpecificOptions }` pattern is used to pass
+The `sources: { ${sourceName}: sourceSpecificOptions }` pattern is used to pass
 options that only a particular source will understand when processing a query.
 In this instance, we're telling a source named `remote` (let's say it's a
 `JSONAPISource`) to include `include=phone-numbers` as a query param. This will

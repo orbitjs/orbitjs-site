@@ -130,7 +130,7 @@ sources:
   a query expression and returns a recordset as a result.
 
 * `Pushable` - Allows sources to be updated via a `push` method that takes a
-  a transform and returns the results of the change and its side effects as an
+  transform and returns the results of the change and its side effects as an
   array of transforms.
 
 * `Pullable` - Allows sources to be queried via a `pull` method that takes a
