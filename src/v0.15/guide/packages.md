@@ -46,7 +46,7 @@ the core Orbit primitives to data sources. Includes the following elements:
 
 * [@orbit/coordinator](https://www.npmjs.com/package/@orbit/coordinator) -
   A coordinator and set of coordination strategies for managing data flow and
-  keeping Orbit Data sources in sync
+  keeping Orbit Data sources in sync.
 
 * [@orbit/utils](https://www.npmjs.com/package/@orbit/utils) - A
 common set of utility functions used by Orbit libs.

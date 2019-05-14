@@ -44,11 +44,12 @@ listener for one source that triggers actions on another.
 Let's take a look at what events can trigger other actions:
 
 * Update events (`beforeUpdate`, `update`, `beforePush`, `push`) can trigger
-  `push`
+  `push`.
 
-* Query events (`beforeQuery`, `query`, `beforePull`, `pull`) can trigger `pull`
+* Query events (`beforeQuery`, `query`, `beforePull`, `pull`) can trigger
+  `pull`.
 
-* Change events (`transform`, `beforeSync`, `sync`) - can trigger `sync`
+* Change events (`transform`, `beforeSync`, `sync`) can trigger `sync`.
 
 ### Blocking vs. non-blocking
 
@@ -79,7 +80,7 @@ to error as well.
 
 Here are some guidelines for working with data flows:
 
-* Consider the full arc of each request - how it will flow up to be fulfilled,
+* Consider the full arc of each request—how it will flow up to be fulfilled,
   and how results and/or errors will be synchronized on the way back down.
 
 * Avoid spawning requests from the synchronization flow. A change event

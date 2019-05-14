@@ -210,7 +210,7 @@ Our in-memory data store is quite isolated at the moment. If a scientist is
 using our application to track their discoveries, a browser refresh might lose a
 whole planet or moon! 😱
 
-Let's create an browser storage source to keep data around locally:
+Let's create a browser storage source to keep data around locally:
 
 ```javascript
 import IndexedDBSource from '@orbit/indexeddb';
@@ -312,7 +312,7 @@ the simple event handler, there are a number of benefits to using a coordinator:
 Although we're now backing up our store to browser storage, we have not yet
 set up a process to restore that backed up data.
 
-If we want our app to restores all of its data from browser storage when it
+If we want our app to restore all of its data from browser storage when it
 first boots, we could perform the following:
 
 ```javascript
@@ -338,7 +338,7 @@ See [Part 2 of this example in CodeSandbox](https://codesandbox.io/s/rr0lkz3rxq?
 
 ## Communicating with a server
 
-Most apps can't exist in the vacuum of a browser - data tends to be far more
+Most apps can't exist in the vacuum of a browser—data tends to be far more
 useful when it's shared with a server.
 
 Let's say that we have a web server that conforms with the

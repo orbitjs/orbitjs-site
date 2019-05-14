@@ -5,7 +5,7 @@ version: 0.15
 ---
 
 Data in a source can be updated by applying a transform, which consists of one
-or more operations. Transforms must be applied atomically - all operations
+or more operations. Transforms must be applied atomically—all operations
 succeed or fail together.
 
 ## Operations
@@ -218,7 +218,7 @@ store.update(t => t.replaceRecord({
 A `label` can be useful for providing an understanding of actions that have been
 queued for processing.
 
-The `sources: ( ${sourceName}: sourceSpecificOptions }` pattern is used to pass
+The `sources: { ${sourceName}: sourceSpecificOptions }` pattern is used to pass
 options that only a particular source will understand when processing a
 transform. In this instance, we're telling our remote source to use a custom
 timeout when performing this particular update.

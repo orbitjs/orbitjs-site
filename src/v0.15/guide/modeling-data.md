@@ -89,9 +89,9 @@ server:
 
 The `remoteId` key of `123456` can be mapped to the locally generated `id` using
 a `KeyMap`, which can be shared by any sources that need access to the mapping.
-When communicating with the server, `remoteId` might be serialized as `id` -
-such a translation should occur within the source that communicates directly
-with the remote server (e.g. Orbit's standard `JSONAPISource`).
+When communicating with the server, `remoteId` might be serialized as `id`—such
+a translation should occur within the source that communicates directly with the
+remote server (e.g. Orbit's standard `JSONAPISource`).
 
 ### Attributes
 
@@ -109,7 +109,7 @@ the root of a record.
 Relationship linkage is specified in a `data` object for each relationship.
 
 For to-one relationships, linkage should be expressed as a record identity
-object in the form `{ type, id }`. The absense of a relationship can be
+object in the form `{ type, id }`. The absence of a relationship can be
 expressed as `null`.
 
 For to-many relationships, linkage should be expressed as an array of record
