@@ -4,7 +4,7 @@ order: 100
 version: 0.15
 ---
 
-Copyright 2017 Cerebris Corporation.
+Copyright 2019 Cerebris Corporation.
 
 MIT License
 
