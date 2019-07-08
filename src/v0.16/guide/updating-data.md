@@ -101,7 +101,7 @@ a transform, such as `update` or `push`. A `TranformBuilder` that's compatible
 with the source should be applied as an argument. You can then use this builder
 to create one or more operations.
 
-For instance, here's how you might update a store with a single record:
+For instance, here's how you might update a memory source with a single record:
 
 ```javascript
 const earth = {
@@ -112,14 +112,14 @@ const earth = {
   }
 };
 
-store.update(t => t.addRecord(earth));
+memory.update(t => t.addRecord(earth));
 ```
 
 To perform more than one operation in a single transform, just return an array
 of operations:
 
 ```javascript
-store.update(t => [t.addRecord(earth), t.addRecord(jupiter)]);
+memory.update(t => [t.addRecord(earth), t.addRecord(jupiter)]);
 ```
 
 ### Standard transforms
@@ -128,7 +128,7 @@ You can use the standard `@orbit/data` transform builder as follows:
 
 ```javascript
 // Adding a new record
-store.update(t => t.addRecord({
+memory.update(t => t.addRecord({
   type: 'planet',
   id: 'earth',
   attributes: {
@@ -137,7 +137,7 @@ store.update(t => t.addRecord({
 }));
 
 // Updating a record
-store.update(t => t.updateRecord({
+memory.update(t => t.updateRecord({
   type: 'planet',
   id: 'earth',
   attributes: {
@@ -148,41 +148,41 @@ store.update(t => t.updateRecord({
 }));
 
 // Removing a record
-store.update(t => t.removeRecord(
+memory.update(t => t.removeRecord(
   { type: 'planet', id: 'earth' }));
 
 // Replacing a key
-store.update(t => t.replaceKey(
+memory.update(t => t.replaceKey(
   { type: 'planet', id: 'earth' },
   'remoteId',
   'abc123'));
 
 // Replacing an attribute
-store.update(t => t.replaceAttribute(
+memory.update(t => t.replaceAttribute(
   { type: 'planet', id: 'earth' },
   'classification',
   'gaseous'));
 
 // Adding a member to a to-many relationship
-store.update(t => t.addToRelatedRecords(
+memory.update(t => t.addToRelatedRecords(
   { type: 'planet', id: 'jupiter' },
   'moons',
   { type: 'moon', id: 'io' }));
 
 // Removing a member from a to-many relationship
-store.update(t => t.removeFromRelatedRecords(
+memory.update(t => t.removeFromRelatedRecords(
   { type: 'planet', id: 'jupiter' },
   'moons',
   { type: 'moon', id: 'io' }));
 
 // Replacing every member of a to-many relationship
-store.update(t => t.replaceRelatedRecords(
+memory.update(t => t.replaceRelatedRecords(
   { type: 'planet', id: 'jupiter' },
   'moons',
   [{ type: 'moon', id: 'io' }, { type: 'moon', id: 'europa' }]));
 
 // Replacing a to-one relationship
-store.update(t => t.replaceRelatedRecord(
+memory.update(t => t.replaceRelatedRecord(
   { type: 'planet', id: 'jupiter' },
   'solarSystem',
   { type: 'solarSystem', id: 'ourSolarSystem' }));
@@ -197,7 +197,7 @@ For example, the following transform is given a `label` and contains
 instructions for the source named `remote`:
 
 ```javascript
-store.update(t => t.updateRecord({
+memory.update(t => t.updateRecord({
   type: 'planet',
   id: 'earth',
   attributes: {

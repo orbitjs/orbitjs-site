@@ -37,8 +37,8 @@ A coordinator can be created with sources and strategies:
 import Coordinator from '@orbit/coordinator';
 
 const coordinator = new Coordinator({
-  sources: [store, backup],
-  strategies: [backupStoreSync]
+  sources: [memory, backup],
+  strategies: [backupMemorySync]
 });
 ```
 
@@ -50,9 +50,9 @@ import Coordinator from '@orbit/coordinator';
 
 const coordinator = new Coordinator();
 
-coordinator.addSource(store);
+coordinator.addSource(memory);
 coordinator.addSource(backup);
-coordinator.addStrategy(backupStoreSync);
+coordinator.addStrategy(backupMemorySync);
 ```
 
 ## Activating a coordinator
@@ -117,14 +117,14 @@ request strategy should be defined with:
   observed event until the action on the target has been processed
 
 Here are some example strategies that query / update a remote server
-pessimistically whenever a store is queried / updated:
+pessimistically whenever a memory source is queried / updated:
 
 ```javascript
 import { RequestStrategy } from '@orbit/coordinator';
 
-// Query the remote server whenever the store is queried
+// Query the remote server whenever the memory source is queried
 coordinator.addStrategy(new RequestStrategy({
-  source: 'store',
+  source: 'memory',
   on: 'beforeQuery',
 
   target: 'remote',
@@ -133,9 +133,9 @@ coordinator.addStrategy(new RequestStrategy({
   blocking: true
 }));
 
-// Update the remote server whenever the store is updated
+// Update the remote server whenever the memory source is updated
 coordinator.addStrategy(new RequestStrategy({
-  source: 'store',
+  source: 'memory',
   on: 'beforeUpdate',
 
   target: 'remote',
@@ -154,7 +154,7 @@ import { RequestStrategy } from '@orbit/coordinator';
 
 // Only forward requests for planets on to the remote server
 coordinator.addStrategy(new RequestStrategy({
-  source: 'store',
+  source: 'memory',
   on: 'beforeQuery',
 
   target: 'remote',
@@ -183,15 +183,15 @@ Sync strategies only observe the `transform` event and apply the `sync` method
 on the `target`.
 
 The following strategy synchronizes any changes to the `remote` source with a
-`store`:
+`memory` source:
 
 ```javascript
 import { SyncStrategy } from '@orbit/coordinator';
 
-// Sync all changes received from the remote server to the store
+// Sync all changes received from the remote server to the memory source
 coordinator.addStrategy(new SyncStrategy({
   source: 'remote',
-  target: 'store',
+  target: 'memory',
   blocking: true
 }));
 ```
@@ -229,7 +229,7 @@ specified by name:
 
 ```javascript
 coordinator.addStrategy(new EventLoggingStrategy({
-  sources: ['remote', 'store']
+  sources: ['remote', 'memory']
 }));
 ```
 
@@ -257,6 +257,6 @@ To limit the strategy to apply to only specific sources:
 
 ```javascript
 coordinator.addStrategy(new LogTruncationStrategy({
-  sources: ['backup', 'store']
+  sources: ['backup', 'memory']
 }));
 ```

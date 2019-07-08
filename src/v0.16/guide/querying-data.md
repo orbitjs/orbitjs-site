@@ -114,52 +114,52 @@ You can use the standard `@orbit/data` query builder as follows:
 
 ```javascript
 // Find a single record by identity
-store.query(q => q.findRecord({ type: 'planet', id: 'earth' }));
+memory.query(q => q.findRecord({ type: 'planet', id: 'earth' }));
 
 // Find all records by type
-store.query(q => q.findRecords('planet'));
+memory.query(q => q.findRecords('planet'));
 
 // Find a related record in a to-one relationship
-store.query(q => q.findRelatedRecord({ type: 'moon', id: 'io' }, 'planet'));
+memory.query(q => q.findRelatedRecord({ type: 'moon', id: 'io' }, 'planet'));
 
 // Find related records in a to-many relationship
-store.query(q => q.findRelatedRecords({ type: 'planet', id: 'earth' }, 'moons'));
+memory.query(q => q.findRelatedRecords({ type: 'planet', id: 'earth' }, 'moons'));
 ```
 
 The base `findRecord` query can be enhanced significantly:
 
 ```javascript
 // Sort by name
-store.query(q => q.findRecords('planet')
+memory.query(q => q.findRecords('planet')
                   .sort('name'));
 
 // Sort by classification, then name (descending)
-store.query(q => q.findRecords('planet')
+memory.query(q => q.findRecords('planet')
                   .sort('classification', '-name'));
 
 // Filter by a single attribute
-store.query(q => q.findRecords('planet')
+memory.query(q => q.findRecords('planet')
                   .filter({ attribute: 'classification', value: 'terrestrial' })
 
 // Filter by multiple attributes
-store.query(q => q.findRecords('planet')
+memory.query(q => q.findRecords('planet')
                   .filter({ attribute: 'classification', value: 'terrestrial' },
                           { attribute: 'mass', op: 'gt', value: 987654321 })
 
 // Filter by related records
-store.query(q => q.findRecords('moons')
+memory.query(q => q.findRecords('moons')
                   .filter({ relation: 'planet', record: { type: 'planet', id: 'earth' }})
 
 // Filter by multiple related records
-store.query(q => q.findRecords('moons')
+memory.query(q => q.findRecords('moons')
                   .filter({ relation: 'planet', records: [{ type: 'planet', id: 'earth' }, { type: 'planet', id: 'jupiter'}]})
 
 // Paginate by offset and limit
-store.query(q => q.findRecords('planet')
+memory.query(q => q.findRecords('planet')
                   .page({ offset: 0, limit: 10 }));
 
 // Combine filtering, sorting, and paginating
-store.query(q => q.findRecords('planet')
+memory.query(q => q.findRecords('planet')
                   .filter({ attribute: 'classification', value: 'terrestrial' })
                   .sort('name')
                   .page({ offset: 0, limit: 10 }));
@@ -172,10 +172,10 @@ If you're using the default settings for JSONAPISource, `findRelatedRecords` and
 const relatedRecordId = { type: 'planet', id: 'earth' };
 
 // This fetches from: /planets/earth/moons
-store.query(q => q.findRelatedRecords(relatedRecordId, 'moons'));
+memory.query(q => q.findRelatedRecords(relatedRecordId, 'moons'));
 
 // This fetches from: /moons?filter[planet]=earth
-store.query(q => q.findRecords('moon')).filter({ relation: 'planet', record: relatedRecordId });
+memory.query(q => q.findRecords('moon')).filter({ relation: 'planet', record: relatedRecordId });
 ```
 
 Besides the different urls **`findRelatedRecords` does not support sorting, filtering, or pagination**. If you want that functionality, `findRecords` and filter on the relation.
@@ -189,7 +189,7 @@ For example, the following query is given a `label` and contains instructions
 for the source named `remote`:
 
 ```javascript
-store.query(q => q.findRecords('contact').sort('lastName', 'firstName'), {
+memory.query(q => q.findRecords('contact').sort('lastName', 'firstName'), {
   label: 'Find all contacts',
   sources: {
     remote: {
@@ -209,20 +209,20 @@ In this instance, we're telling a source named `remote` (let's say it's a
 result in a server response that includes contacts together with their related
 phone numbers.
 
-## Querying a store's cache
+## Querying a memory source's cache
 
-Note that `store.query` is asynchronous and thus returns results wrapped in a
-promise. This may seem strange at first because the store's data is "in memory".
-In fact, if you want to just "peek" into the contents of the store's memory,
-you can issue the same queries synchronously against the store's `Cache`.
+Note that `memory.query` is asynchronous and thus returns results wrapped in a
+promise. This may seem strange at first because the memory source's data is "in memory".
+In fact, if you want to just "peek" into the contents of the memory source,
+you can issue the same queries synchronously against the memory source's `Cache`.
 For example:
 
 ```javascript
 // Results will be returned synchronously by querying the cache
-let planets = store.cache.query(q => q.findRecords('planet').sort('name'));
+let planets = memory.cache.query(q => q.findRecords('planet').sort('name'));
 ```
 
-> By querying the cache instead of the store, you're not allowing other
+> By querying the cache instead of the memory source, you're not allowing other
 sources to participate in the fulfillment of the query. If you want to
 coordinate queries across multiple sources, it's critical to make requests
-directly on the store.
+directly on the memory source.

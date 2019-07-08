@@ -54,17 +54,17 @@ Sources provide interfaces to access data. To ensure that they have the same
 understanding of data, every source in an application should share the same
 schema.
 
-Let's create an in-memory store as our first data source:
+Let's create an in-memory source as our first data source:
 
 ```javascript
-import Store from '@orbit/store';
+import MemorySource from '@orbit/memory';
 
-const store = new Store({ schema });
+const memory = new MemorySource({ schema });
 ```
 
 ## Loading and querying data
 
-We can now load some data into our store and then query its contents:
+We can now load some data into our memory source and then query its contents:
 
 ```javascript
 const earth = {
@@ -98,12 +98,12 @@ const theMoon = {
   }
 };
 
-store.update(t => [
+memory.update(t => [
   t.addRecord(venus),
   t.addRecord(earth),
   t.addRecord(theMoon)
 ])
-  .then(() => store.query(q => q.findRecords('planet').sort('name')))
+  .then(() => memory.query(q => q.findRecords('planet').sort('name')))
   .then(planets => {
     console.log(planets);
   });
@@ -149,19 +149,19 @@ the [JSONAPI](http://jsonapi.org/) specification. Every record has an identity
 established by a `type` and `id` pair. Relationship linkage is specified in a
 `data` object via identities.
 
-In order to add records to the store, we call `store.update()` and pass an array
+In order to add records to the memory source, we call `memory.update()` and pass an array
 of operations. Passing a function to `update` provides us with a transform
 builder (`t`), which we use to create an array of `addRecord` operations.
 
 Note that we added the relationship between the moon and the planet on just the
 moon record. However, when we query the planet, we can see that the inverse
 relationship has also been added. This is because every operation that's applied
-to the store's cache passes through a schema consistency check.
+to the memory source's cache passes through a schema consistency check.
 
-Let's look at how the store is queried:
+Let's look at how the memory source is queried:
 
 ```javascript
-store.query(q => q.findRecords('planet').sort('name'));
+memory.query(q => q.findRecords('planet').sort('name'));
 ```
 
 Because we pass a function to `query`, Orbit provides us with a query builder
@@ -175,7 +175,7 @@ involved).
 Here's an example of a more complex query that filters, sorts, and paginates:
 
 ```javascript
-store.query(q => q.findRecords('planet')
+memory.query(q => q.findRecords('planet')
                   .filter({ attribute: 'classification', value: 'terrestrial' })
                   .sort({ attribute: 'name', order: 'descending' })
                   .page({ offset: 0, limit: 10 }))
@@ -183,18 +183,18 @@ store.query(q => q.findRecords('planet')
 
 ### Asynchronous vs. synchronous queries
 
-Note that `store.query` is asynchronous and thus returns results wrapped in a
-promise. This may seem strange at first because the store's data is "in memory".
-In fact, if you want to just "peek" into the contents of the store's memory,
-you can issue the same queries synchronously against the store's `Cache`.
+Note that `memory.query` is asynchronous and thus returns results wrapped in a
+promise. This may seem strange at first because the memory source's data is "in memory".
+In fact, if you want to just "peek" into the contents of the memory source,
+you can issue the same queries synchronously against the memory source's `Cache`.
 For example:
 
 ```javascript
 // Results will be returned synchronously by querying the cache
-let planets = store.cache.query(q => q.findRecords('planet').sort('name'));
+let planets = memory.cache.query(q => q.findRecords('planet').sort('name'));
 ```
 
-By querying the cache instead of the store, you're not allowing other sources to
+By querying the cache instead of the memory source, you're not allowing other sources to
 participate in the fulfillment of the query. Continue reading to understand how
 requests to sources can be "coordinated".
 
@@ -206,7 +206,7 @@ See [Part 1 of this example in CodeSandbox](https://codesandbox.io/s/0vn2w7nzn?p
 
 ## Defining a backup source
 
-Our in-memory data store is quite isolated at the moment. If a scientist is
+Our in-memory data source is quite isolated at the moment. If a scientist is
 using our application to track their discoveries, a browser refresh might lose a
 whole planet or moon! 😱
 
@@ -228,7 +228,7 @@ Every time a source is transformed, it emits a `transform` event. It's simple
 to observe these events directly:
 
 ```javascript
-store.on('transform', (transform) => {
+memory.on('transform', (transform) => {
   console.log(transform);
 });
 ```
@@ -237,18 +237,18 @@ It's possible to pipe changes that occur in one source into another via the
 `sync` method:
 
 ```javascript
-store.on('transform', (transform) => {
+memory.on('transform', (transform) => {
   backup.sync(transform);
 });
 ```
 
 Like all mutation and query methods on sources, the `sync` call returns a
 promise. If we want to guarantee that transforms can't be applied to our
-store without also being backed up, we should return the promise in the event
+memory source without also being backed up, we should return the promise in the event
 handler:
 
 ```javascript
-store.on('transform', (transform) => {
+memory.on('transform', (transform) => {
   return backup.sync(transform);
 });
 ```
@@ -256,13 +256,13 @@ store.on('transform', (transform) => {
 Or more simply:
 
 ```javascript
-store.on('transform', (transform) => backup.sync(transform));
+memory.on('transform', (transform) => backup.sync(transform));
 ```
 
 With this single line of code we've guaranteed that every change to the
-in-memory store will be sync'd with the backup IndexedDB source. Furthermore,
+in-memory source will be sync'd with the backup IndexedDB source. Furthermore,
 we've configured this synchronization to be "blocking", so that changes to the
-store can't be made at all unless they are also backed up.
+memory source can't be made at all unless they are also backed up.
 
 ## Introducing a coordinator
 
@@ -276,16 +276,16 @@ A coordinator could be configured to handle the above scenario as follows:
 import Coordinator, { SyncStrategy } from '@orbit/coordinator';
 
 const coordinator = new Coordinator({
-  sources: [store, backup]
+  sources: [memory, backup]
 });
 
-const backupStoreSync = new SyncStrategy({
-  source: 'store',
+const backupMemorySync = new SyncStrategy({
+  source: 'memory',
   target: 'backup',
   blocking: true
 });
 
-coordinator.addStrategy(backupStoreSync);
+coordinator.addStrategy(backupMemorySync);
 
 coordinator.activate(); // returns a promise that resolves when all strategies
                         // have been activated
@@ -309,7 +309,7 @@ the simple event handler, there are a number of benefits to using a coordinator:
 
 ## Restoring from backup
 
-Although we're now backing up our store to browser storage, we have not yet
+Although we're now backing up our memory source to browser storage, we have not yet
 set up a process to restore that backed up data.
 
 If we want our app to restore all of its data from browser storage when it
@@ -317,13 +317,13 @@ first boots, we could perform the following:
 
 ```javascript
 backup.pull(q => q.findRecords())
-  .then(transform => store.sync(transform))
+  .then(transform => memory.sync(transform))
   .then(() => coordinator.activate());
 ```
 
 This code first pulls all the records from backup and then syncs them
-with the main store _before_ activating the coordinator. In this way, the
-coordination strategy that backs up the store won't be enabled until after
+with the main memory source _before_ activating the coordinator. In this way, the
+coordination strategy that backs up the memory source won't be enabled until after
 the restore is complete.
 
 We now have an application which has data fully contained in the browser. Any
@@ -364,14 +364,14 @@ coordinator.addSource(remote);
 ```
 
 And then we can add strategies to ensure that queries and updates made against
-the store are processed by the remote server:
+the memory source are processed by the remote server:
 
 ```javascript
 import { RequestStrategy, SyncStrategy } from '@orbit/coordinator';
 
-// Query the remote server whenever the store is queried
+// Query the remote server whenever the memory source is queried
 coordinator.addStrategy(new RequestStrategy({
-  source: 'store',
+  source: 'memory',
   on: 'beforeQuery',
 
   target: 'remote',
@@ -380,9 +380,9 @@ coordinator.addStrategy(new RequestStrategy({
   blocking: false
 }));
 
-// Update the remote server whenever the store is updated
+// Update the remote server whenever the memory source is updated
 coordinator.addStrategy(new RequestStrategy({
-  source: 'store',
+  source: 'memory',
   on: 'beforeUpdate',
 
   target: 'remote',
@@ -391,18 +391,18 @@ coordinator.addStrategy(new RequestStrategy({
   blocking: false
 }));
 
-// Sync all changes received from the remote server to the store
+// Sync all changes received from the remote server to the memory source
 coordinator.addStrategy(new SyncStrategy({
   source: 'remote',
-  target: 'store',
+  target: 'memory',
   blocking: false
 }));
 ```
 
-These strategies are all non-blocking, which means that the store will be
+These strategies are all non-blocking, which means that the memory source will be
 updated / queried optimistically without waiting for responses from the server.
 Once the server responses are received, they will then be sync'd back with the
-store.
+memory source.
 
 This set of coordination strategies is certainly not yet production ready. We
 will need exception handling in our strategies to tell Orbit how to handle
@@ -410,7 +410,7 @@ network errors (e.g. retry after X secs) as well as other types of exceptions.
 
 Optimistic server requests paired with an in-browser backup can work well for
 some kinds of applications. For other applications, it's more appropriate to use
-blocking strategies that tie the success of store requests to a successful
+blocking strategies that tie the success of memory source requests to a successful
 round trip to the server. Still other applications might choose to mix
 strategies, so that only certain updates are blocking (e.g. a store purchase).
 
@@ -450,7 +450,7 @@ const backup = new IndexedDBSource({
   namespace: 'solarsystem'
 });
 
-const store = new Store({ bucket, schema });
+const memory = new MemorySource({ bucket, schema });
 ```
 
 Each source will use the bucket to initialize its queues, logs, and other state.

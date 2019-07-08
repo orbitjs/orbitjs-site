@@ -56,24 +56,24 @@ Let's take a look at what events can trigger other actions:
 We can coordinate sources through simple event listeners, such as:
 
 ```javascript
-store.on('beforeUpdate', transform => {
+memory.on('beforeUpdate', transform => {
   remote.push(transform);
 });
 ```
 
 The above listener is "non-blocking" because it doesn't return anything to
 the emitter. The call to `remote.push()` is async and may take a while to
-complete, so it will proceed in parallel with the store being updated.
+complete, so it will proceed in parallel with the `memory` source being updated.
 
 As an alternative, we can use a "blocking" strategy in our event listener by
 simply returning a promise:
 
 ```javascript
-store.on('beforeUpdate', transform => remote.push(transform));
+memory.on('beforeUpdate', transform => remote.push(transform));
 ```
 
-This will prevent the `store` from updating before the transform has been pushed
-up to the `remote` source. An error in `remote.push` will cause `store.update`
+This will prevent the `memory` source from updating before the transform has been pushed
+up to the `remote` source. An error in `remote.push` will cause `memory.update`
 to error as well.
 
 ### Coordination guidelines

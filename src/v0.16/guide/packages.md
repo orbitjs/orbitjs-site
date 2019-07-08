@@ -55,10 +55,10 @@ common set of utility functions used by Orbit libs.
 
 Orbit provides the following sources for accessing and persisting data:
 
-* [@orbit/store](https://www.npmjs.com/package/@orbit/store) - An
-  in-memory data store that supports complex querying and updating. Because
-  stores maintain data in immutable data structures, they can be efficiently
-  forked. Forked stores can diverge from the master store, and then the changes
+* [@orbit/memory](https://www.npmjs.com/package/@orbit/memory) - An
+  in-memory data source that supports complex querying and updating. Because
+  memory sources maintain data in immutable data structures, they can be efficiently
+  forked. Forked memory sources can diverge from the master memory source, and then the changes
   can be merged later.
 
 * [@orbit/jsonapi](https://www.npmjs.com/package/@orbit/jsonapi) -

@@ -182,7 +182,7 @@ Orbit's primitives allow you to start simple and add complexity gradually
 without impacting your working code. Need to support real time sockets or SSE?
 Add another source and coordination strategy. Need offline support? Add another
 source and coordination strategy. When offline, you can issue the same queries
-against your in-memory store as you could against a backend REST server.
+against your in-memory source as you could against a backend REST server.
 
 Not only does Orbit allow you to incur the cost of complexity gradually, that
 cost can be contained. New capabilities can often be added through declarative

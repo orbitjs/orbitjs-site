@@ -10,7 +10,7 @@ broadcast changes.
 
 Orbit includes a number of "standard" sources:
 
-* [@orbit/store](https://www.npmjs.com/package/@orbit/store) - an in-memory store
+* [@orbit/memory](https://www.npmjs.com/package/@orbit/memory) - an in-memory source
 * [@orbit/jsonapi](https://www.npmjs.com/package/@orbit/jsonapi) - a JSON API client
 * [@orbit/indexeddb](https://www.npmjs.com/package/@orbit/indexeddb) - for accessing IndexedDB databases
 * [@orbit/local-storage](https://www.npmjs.com/package/@orbit/local-storage) - for accessing LocalStorage
@@ -25,11 +25,11 @@ set of capabilities.
 Sources must be instantiated with a schema. A schema provides sources with an
 understanding of the domain-specific data they manage.
 
-Let's create a simple schema and store:
+Let's create a simple schema and memory source:
 
 ```javascript
 import { Schema } from '@orbit/data';
-import Store from '@orbit/store';
+import MemorySource from '@orbit/memory';
 
 // Create a schema
 const schema = new Schema({
@@ -43,8 +43,8 @@ const schema = new Schema({
   }
 });
 
-// Create a store that uses the schema
-const store = new Store({ schema });
+// Create a memory source that uses the schema
+const memory = new MemorySource({ schema });
 ```
 
 All sources can be mutated, although not all sources support _requests_ to
@@ -75,18 +75,18 @@ const jupiter = {
 };
 
 // Observe and log all transforms
-store.on('transform', t => {
+memory.on('transform', t => {
   console.log('transform', t);
 });
 
 // Check the size of the transform log before updates
-console.log(`transforms: ${store.transformLog.length}`);
+console.log(`transforms: ${memory.transformLog.length}`);
 
-// Update the store with a transform that adds a record
-store.update(t => t.addRecord(jupiter))
+// Update the memory source with a transform that adds a record
+memory.update(t => t.addRecord(jupiter))
   .then(() => {
     // Verify that the transform log has grown
-    console.log(`transforms: ${store.transformLog.length}`);
+    console.log(`transforms: ${memory.transformLog.length}`);
   });
 ```
 
