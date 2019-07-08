@@ -31,8 +31,8 @@ interface AddRecordOperation extends Operation {
   record: Record;
 }
 
-interface ReplaceRecordOperation extends Operation {
-  op: 'replaceRecord';
+interface UpdateRecordOperation extends Operation {
+  op: 'updateRecord';
   record: Record;
 }
 
@@ -136,8 +136,8 @@ store.update(t => t.addRecord({
   }
 }));
 
-// Replacing an entire record
-store.update(t => t.replaceRecord({
+// Updating a record
+store.update(t => t.updateRecord({
   type: 'planet',
   id: 'earth',
   attributes: {
@@ -197,7 +197,7 @@ For example, the following transform is given a `label` and contains
 instructions for the source named `remote`:
 
 ```javascript
-store.update(t => t.replaceRecord({
+store.update(t => t.updateRecord({
   type: 'planet',
   id: 'earth',
   attributes: {
