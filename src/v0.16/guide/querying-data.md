@@ -168,7 +168,7 @@ memory.query(q => q.findRecords('planet')
                   .page({ offset: 0, limit: 10 }));
 ```
 
-Same parameters can be applied to `findRelatedRecords`:
+The same parameters can be applied to `findRelatedRecords`:
 
 ```javascript
 // Sort by name
