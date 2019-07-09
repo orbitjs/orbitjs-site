@@ -41,6 +41,9 @@ interface FindRelatedRecords extends QueryExpression {
   op: 'findRelatedRecords';
   record: RecordIdentity;
   relationship: string;
+  sort?: SortSpecifier[];
+  filter?: FilterSpecifier[];
+  page?: PageSpecifier;
 }
 
 interface FindRecords extends QueryExpression {
@@ -126,7 +129,7 @@ memory.query(q => q.findRelatedRecord({ type: 'moon', id: 'io' }, 'planet'));
 memory.query(q => q.findRelatedRecords({ type: 'planet', id: 'earth' }, 'moons'));
 ```
 
-The base `findRecord` query can be enhanced significantly:
+The base `findRecords` query can be enhanced significantly:
 
 ```javascript
 // Sort by name
@@ -139,20 +142,20 @@ memory.query(q => q.findRecords('planet')
 
 // Filter by a single attribute
 memory.query(q => q.findRecords('planet')
-                  .filter({ attribute: 'classification', value: 'terrestrial' })
+                  .filter({ attribute: 'classification', value: 'terrestrial' });
 
 // Filter by multiple attributes
 memory.query(q => q.findRecords('planet')
                   .filter({ attribute: 'classification', value: 'terrestrial' },
-                          { attribute: 'mass', op: 'gt', value: 987654321 })
+                          { attribute: 'mass', op: 'gt', value: 987654321 });
 
 // Filter by related records
 memory.query(q => q.findRecords('moons')
-                  .filter({ relation: 'planet', record: { type: 'planet', id: 'earth' }})
+                  .filter({ relation: 'planet', record: { type: 'planet', id: 'earth' }});
 
 // Filter by multiple related records
 memory.query(q => q.findRecords('moons')
-                  .filter({ relation: 'planet', records: [{ type: 'planet', id: 'earth' }, { type: 'planet', id: 'jupiter'}]})
+                  .filter({ relation: 'planet', records: [{ type: 'planet', id: 'earth' }, { type: 'planet', id: 'jupiter'}]});
 
 // Paginate by offset and limit
 memory.query(q => q.findRecords('planet')
@@ -160,6 +163,45 @@ memory.query(q => q.findRecords('planet')
 
 // Combine filtering, sorting, and paginating
 memory.query(q => q.findRecords('planet')
+                  .filter({ attribute: 'classification', value: 'terrestrial' })
+                  .sort('name')
+                  .page({ offset: 0, limit: 10 }));
+```
+
+The same parameters can be applied to `findRelatedRecords`:
+
+```javascript
+// Sort by name
+memory.query(q => q.findRelatedRecords({ id: 'solar', type: 'planetarySystem' }, 'planets')
+                  .sort('name'));
+
+// Sort by classification, then name (descending)
+memory.query(q => q.findRelatedRecords({ id: 'solar', type: 'planetarySystem' }, 'planets')
+                  .sort('classification', '-name'));
+
+// Filter by a single attribute
+memory.query(q => q.findRelatedRecords({ id: 'solar', type: 'planetarySystem' }, 'planets')
+                  .filter({ attribute: 'classification', value: 'terrestrial' });
+
+// Filter by multiple attributes
+memory.query(q => q.findRelatedRecords({ id: 'solar', type: 'planetarySystem' }, 'planets')
+                  .filter({ attribute: 'classification', value: 'terrestrial' },
+                          { attribute: 'mass', op: 'gt', value: 987654321 });
+
+// Filter by related records
+memory.query(q => q.findRelatedRecords({ id: 'solar', type: 'planetarySystem' }, 'moons')
+                  .filter({ relation: 'planet', record: { type: 'planet', id: 'earth' }});
+
+// Filter by multiple related records
+memory.query(q => q.findRelatedRecords({ id: 'solar', type: 'planetarySystem' }, 'moons')
+                  .filter({ relation: 'planet', records: [{ type: 'planet', id: 'earth' }, { type: 'planet', id: 'jupiter'}]});
+
+// Paginate by offset and limit
+memory.query(q => q.findRelatedRecords({ id: 'solar', type: 'planetarySystem' }, 'planets')
+                  .page({ offset: 0, limit: 10 }));
+
+// Combine filtering, sorting, and paginating
+memory.query(q => q.findRelatedRecords({ id: 'solar', type: 'planetarySystem' }, 'planets')
                   .filter({ attribute: 'classification', value: 'terrestrial' })
                   .sort('name')
                   .page({ offset: 0, limit: 10 }));
@@ -177,8 +219,6 @@ memory.query(q => q.findRelatedRecords(relatedRecordId, 'moons'));
 // This fetches from: /moons?filter[planet]=earth
 memory.query(q => q.findRecords('moon')).filter({ relation: 'planet', record: relatedRecordId });
 ```
-
-Besides the different urls **`findRelatedRecords` does not support sorting, filtering, or pagination**. If you want that functionality, `findRecords` and filter on the relation.
 
 ### Query options
 
