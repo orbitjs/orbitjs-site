@@ -23,11 +23,11 @@ page.index }) %> <% } else { %>
   <h1><%- page.title %><%- page.type === 'examples' ? ' Example' : '' %></h1>
   <% } %> <%- page.content %> <% if (page.type === 'guide') { %>
   <div class="guide-links">
-    <% site.pages.find({ type: page.type, order: page.order - 1 }).each(function
-    (page) { %>
+    <% site.pages.find({ version: page.version, type: page.type, order:
+    page.order - 1 }).each(function (page) { %>
     <span>← <a href="<%- url_for(page.path) %>"><%- page.title %></a></span>
-    <% }) %> <% site.pages.find({ type: page.type, order: page.order + 1
-    }).each(function (page) { %>
+    <% }) %> <% site.pages.find({ version: page.version, type: page.type, order:
+    page.order + 1 }).each(function (page) { %>
     <span style="float:right"
       ><a href="<%- url_for(page.path) %>"><%- page.title %></a> →</span
     >
