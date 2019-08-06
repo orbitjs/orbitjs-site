@@ -9,7 +9,7 @@ page.index }) %> <% } else { %>
 <div
   class="content <%- page.type ? page.type + ' with-sidebar' : '' %> <%- page.type === 'guide' ? page.path.replace(/.+\//, '').replace('.html', '') + '-guide' : '' %>"
 >
-  <% if (page.version !== config.versions.current) { %>
+  <% if (page.version && page.version !== config.versions.current) { %>
   <section class="outdated-docs">
     <a href="/<%= page.path.replace(page.version, config.versions.current) %>">
       View v<%= config.versions.current %>
