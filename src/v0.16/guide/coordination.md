@@ -274,3 +274,72 @@ coordinator.addStrategy(
   })
 );
 ```
+
+## Using hints
+
+Orbit v0.16 introduced the concept of "hints", which allow request listeners to
+influence the results that a source returns from that request.
+
+### Why use hints?
+
+The main reason to use hints is to allow sources to take into account outside
+information when processing a request. For instance, let's say that a user
+queries a memory source and wants records returned in the same order they're
+returned from the server. If the server is using a complex sorting algorithm, it
+may be impossible to recreate that same logic (and full dataset) on the client
+in the `MemorySource`.
+
+### How can you use hints?
+
+Hints are only available to methods that are part of the request flow, such as
+`query` and `update`. Hints are returned by listeners to `before[X]` events to
+aid in the fulfillment of `[X]` requests. They can only be applied in a blocking
+fashion - otherwise the request may be fulfilled prior to the hint being
+returned.
+
+Let's work through an example using hints to influence the results of a
+`MemorySource` query based upon the records returned from the same query applied
+to a `JSONAPISource`.
+
+You'll start by creating a new `RequestStrategy` that ensures that when the
+`memory` (`MemorySource`) is queried, the `remote` (`JSONAPISource`) source will
+be too:
+
+```ts
+coordinator.addStrategy(
+  new RequestStrategy({
+    source: "memory",
+    target: "remote",
+    on: "beforeQuery",
+    action: "query",
+    blocking: true,
+    passHints: true
+  })
+);
+```
+
+Several things to note here:
+
+- `blocking: true` is strictly required for hints to function.
+- The results of `action` will be sent as hints, so the method needs to return records as results. `query` will work, but `pull` will not.
+- `passHints: true` tells the strategy to actually pass the results of `remote.query` as hints.
+
+You'll also want to create a blocking `SyncStrategy` that syncs any transforms applied to the `remote` source back to the `memory` source:
+
+```ts
+coordinator.addStrategy(
+  new SyncStrategy({
+    source: "remote",
+    target: "memory",
+    blocking: true
+  })
+);
+```
+
+The strategy will ensure that data will be populated in the `memory` source entirely before it attempts to fulfill the `query` result.
+
+Now, when `memory.query(q => q.findRecords('planet'))` is issued, the records returned should still come from the `memory` source, but their identities and order should match the records returned from `remote.query(q => q.findRecords('planet'))`.
+
+### Caveats to using hints
+
+Hints have only been fully tested with the `query` and `update` events and the standard sources.
