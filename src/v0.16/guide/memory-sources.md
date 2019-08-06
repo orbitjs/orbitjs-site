@@ -2,6 +2,7 @@ title: Memory sources
 type: guide
 order: 10
 version: 0.16
+
 ---
 
 Memory sources, which come from the `@orbit/memory` package, have been discussed at
@@ -55,8 +56,8 @@ The `PatchResult` that's returned has the following signature:
 type PatchResultData = Record | RecordIdentity | null;
 
 interface PatchResult {
-  inverse: RecordOperation[],
-  data: PatchResultData[]
+  inverse: RecordOperation[];
+  data: PatchResultData[];
 }
 ```
 
@@ -79,13 +80,13 @@ example:
 
 ```javascript
 // Results will be returned synchronously by querying the cache
-let planets = memory.cache.query(q => q.findRecords('planet').sort('name'));
+let planets = memory.cache.query(q => q.findRecords("planet").sort("name"));
 ```
 
 > By querying the cache instead of the memory source, you're not allowing other
-sources to participate in the fulfillment of the query. If you want to
-coordinate queries across multiple sources, it's critical to make requests
-directly on the memory source.
+> sources to participate in the fulfillment of the query. If you want to
+> coordinate queries across multiple sources, it's critical to make requests
+> directly on the memory source.
 
 ## Forking memory sources
 
@@ -117,7 +118,9 @@ await forkedMemorySource.update(t => [
 ]);
 
 // query the planets in the forked memory source
-planets = await forkedMemorySource.query(q => q.findRecords("planet").sort("name"));
+planets = await forkedMemorySource.query(q =>
+  q.findRecords("planet").sort("name")
+);
 console.log("planets in fork", planets);
 
 // merge the forked memory source back into the original memory source
@@ -130,12 +133,12 @@ console.log("merged planets", planets);
 
 It's important to note a few things about memory source forking and merging:
 
-* Once a memory source has been forked, the original and forked memory source's data can
+- Once a memory source has been forked, the original and forked memory source's data can
   diverge independently.
 
-* A memory source fork can simply be abandoned without cost.
+- A memory source fork can simply be abandoned without cost.
 
-* Merging a fork will gather the transforms applied since the fork point,
+- Merging a fork will gather the transforms applied since the fork point,
   coalesce the operations in those transforms into a single new transform,
   and then update the original memory source.
 

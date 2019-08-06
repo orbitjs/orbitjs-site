@@ -2,6 +2,7 @@ title: Querying data
 type: guide
 order: 6
 version: 0.16
+
 ---
 
 The contents of a source can be interrogated using a `Query`. Orbit comes with a
@@ -15,7 +16,7 @@ participating can understand them.
 
 The `QueryExpression` interface requires one member:
 
-* `op` - a string identifying the type of query operation
+- `op` - a string identifying the type of query operation
 
 The other members of a `QueryExpression` are specific to the `op`.
 
@@ -27,18 +28,18 @@ interface QueryExpression {
 }
 
 interface FindRecord extends QueryExpression {
-  op: 'findRecord';
+  op: "findRecord";
   record: RecordIdentity;
 }
 
 interface FindRelatedRecord extends QueryExpression {
-  op: 'findRelatedRecord';
+  op: "findRelatedRecord";
   record: RecordIdentity;
   relationship: string;
 }
 
 interface FindRelatedRecords extends QueryExpression {
-  op: 'findRelatedRecords';
+  op: "findRelatedRecords";
   record: RecordIdentity;
   relationship: string;
   sort?: SortSpecifier[];
@@ -47,7 +48,7 @@ interface FindRelatedRecords extends QueryExpression {
 }
 
 interface FindRecords extends QueryExpression {
-  op: 'findRecords';
+  op: "findRecords";
   type?: string;
   sort?: SortSpecifier[];
   filter?: FilterSpecifier[];
@@ -58,7 +59,7 @@ interface FindRecords extends QueryExpression {
 Supporting interfaces include:
 
 ```typescript
-export type SortOrder = 'ascending' | 'descending';
+export type SortOrder = "ascending" | "descending";
 
 export interface SortSpecifier {
   kind: string;
@@ -66,11 +67,11 @@ export interface SortSpecifier {
 }
 
 export interface AttributeSortSpecifier extends SortSpecifier {
-  kind: 'attribute';
+  kind: "attribute";
   attribute: string;
 }
 
-export type ComparisonOperator = 'equal' | 'gt' | 'lt' | 'gte' | 'lte';
+export type ComparisonOperator = "equal" | "gt" | "lt" | "gte" | "lte";
 
 export interface FilterSpecifier {
   op: ComparisonOperator;
@@ -78,7 +79,7 @@ export interface FilterSpecifier {
 }
 
 export interface AttributeFilterSpecifier extends FilterSpecifier {
-  kind: 'attribute';
+  kind: "attribute";
   attribute: string;
   value: any;
 }
@@ -88,7 +89,7 @@ export interface PageSpecifier {
 }
 
 export interface OffsetLimitPageSpecifier extends PageSpecifier {
-  kind: 'offsetLimit';
+  kind: "offsetLimit";
   offset?: number;
   limit?: number;
 }
@@ -98,9 +99,9 @@ export interface OffsetLimitPageSpecifier extends PageSpecifier {
 
 The `Query` interface has the following members:
 
-* `id` - a string that uniquely identifies the query
-* `expression` - a `QueryExpression` object
-* `options` - an optional object that represents options that can influence how
+- `id` - a string that uniquely identifies the query
+- `expression` - a `QueryExpression` object
+- `options` - an optional object that represents options that can influence how
   a query is processed
 
 Although queries can be created "manually", you'll probably find it easier
@@ -117,16 +118,18 @@ You can use the standard `@orbit/data` query builder as follows:
 
 ```javascript
 // Find a single record by identity
-memory.query(q => q.findRecord({ type: 'planet', id: 'earth' }));
+memory.query(q => q.findRecord({ type: "planet", id: "earth" }));
 
 // Find all records by type
-memory.query(q => q.findRecords('planet'));
+memory.query(q => q.findRecords("planet"));
 
 // Find a related record in a to-one relationship
-memory.query(q => q.findRelatedRecord({ type: 'moon', id: 'io' }, 'planet'));
+memory.query(q => q.findRelatedRecord({ type: "moon", id: "io" }, "planet"));
 
 // Find related records in a to-many relationship
-memory.query(q => q.findRelatedRecords({ type: 'planet', id: 'earth' }, 'moons'));
+memory.query(q =>
+  q.findRelatedRecords({ type: "planet", id: "earth" }, "moons")
+);
 ```
 
 The base `findRecords` query can be enhanced significantly:
@@ -208,6 +211,7 @@ memory.query(q => q.findRelatedRecords({ id: 'solar', type: 'planetarySystem' },
 ```
 
 #### findRelatedRecords vs findRecords.filter({ relation: ..., record: ... })
+
 If you're using the default settings for JSONAPISource, `findRelatedRecords` and `findRecords.filter(...)` produce very different URLs.
 
 ```
@@ -229,11 +233,11 @@ For example, the following query is given a `label` and contains instructions
 for the source named `remote`:
 
 ```javascript
-memory.query(q => q.findRecords('contact').sort('lastName', 'firstName'), {
-  label: 'Find all contacts',
+memory.query(q => q.findRecords("contact").sort("lastName", "firstName"), {
+  label: "Find all contacts",
   sources: {
     remote: {
-      include: ['phone-numbers']
+      include: ["phone-numbers"]
     }
   }
 });
@@ -259,10 +263,10 @@ For example:
 
 ```javascript
 // Results will be returned synchronously by querying the cache
-let planets = memory.cache.query(q => q.findRecords('planet').sort('name'));
+let planets = memory.cache.query(q => q.findRecords("planet").sort("name"));
 ```
 
 > By querying the cache instead of the memory source, you're not allowing other
-sources to participate in the fulfillment of the query. If you want to
-coordinate queries across multiple sources, it's critical to make requests
-directly on the memory source.
+> sources to participate in the fulfillment of the query. If you want to
+> coordinate queries across multiple sources, it's critical to make requests
+> directly on the memory source.

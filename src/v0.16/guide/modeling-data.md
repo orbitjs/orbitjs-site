@@ -2,6 +2,7 @@ title: Modeling data
 type: guide
 order: 3
 version: 0.16
+
 ---
 
 Data records must have a normalized structure that's consistent
@@ -13,7 +14,7 @@ application.
 Records are represented as lightweight, serializable POJOs (i.e. "Plain old
 JavaScript objects").
 
-The structure used for records conforms to the [JSONAPI](http://jsonapi.org/)
+The structure used for records conforms to the [JSON:API](http://jsonapi.org/)
 specification. Records can have fields that define their identity, attributes,
 and relationships with other records.
 
@@ -45,15 +46,15 @@ Here's an example record that represents a planet:
 
 Each record's identity is established by a union of the following fields:
 
- * `type` - a string that identifies a set of records with a shared definition
- * `id` - a string that uniquely identifies a record of a given `type`
+- `type` - a string that identifies a set of records with a shared definition
+- `id` - a string that uniquely identifies a record of a given `type`
 
 Both fields must be defined in order for a record to be identified uniquely.
 
 Applications can take one of the following approaches to managing identity:
 
 1. Auto-generate IDs, typically as v4 UUIDs, and then use the same IDs locally
-  and remotely.
+   and remotely.
 
 2. Auto-generate IDs locally and map those IDs to canonical IDs (or "keys")
    generated remotely.
@@ -65,7 +66,7 @@ The first two approaches are "optimistic" and allow for offline usage, while
 the third is "pessimistic" and requires persistent connectivity.
 
 > Note: It's possible to mix these approaches for different types of records
-  (i.e. models) within a given application.
+> (i.e. models) within a given application.
 
 ### Keys
 
@@ -124,25 +125,25 @@ the sources in an application.
 Schemas are defined with their initial settings as follows:
 
 ```javascript
-import { Schema } from '@orbit/data';
+import { Schema } from "@orbit/data";
 
 const schema = new Schema({
   models: {
     planet: {
       attributes: {
-        name: { type: 'string' },
-        classification: { type: 'string' }
+        name: { type: "string" },
+        classification: { type: "string" }
       },
       relationships: {
-        moons: { type: 'hasMany', model: 'moon', inverse: 'planet' }
+        moons: { type: "hasMany", model: "moon", inverse: "planet" }
       }
     },
     moon: {
       attributes: {
-        name: { type: 'string' }
+        name: { type: "string" }
       },
       relationships: {
-        planet: { type: 'hasOne', model: 'planet', inverse: 'moons' }
+        planet: { type: "hasOne", model: "planet", inverse: "moons" }
       }
     }
   }
@@ -162,8 +163,8 @@ also be used to determine how it should be serialized.
 
 Two types of relationships between models are allowed:
 
-* `hasOne` - for to-one relationships
-* `hasMany` - for to-many relationships
+- `hasOne` - for to-one relationships
+- `hasMany` - for to-many relationships
 
 Relationships must define the related `model` and may optionally define their
 `inverse`, which should correspond to the name of a relationship on the related
@@ -175,18 +176,18 @@ Here's an example of a schema definition that includes relationships with
 inverses:
 
 ```javascript
-import { Schema } from '@orbit/data';
+import { Schema } from "@orbit/data";
 
 const schema = new Schema({
   models: {
     planet: {
       relationships: {
-        moons: { type: 'hasMany', model: 'moon', inverse: 'planet' }
+        moons: { type: "hasMany", model: "moon", inverse: "planet" }
       }
     },
     moon: {
       relationships: {
-        planet: { type: 'hasOne', model: 'planet', inverse: 'moons' }
+        planet: { type: "hasOne", model: "planet", inverse: "moons" }
       }
     }
   }
@@ -218,8 +219,8 @@ const schema = new Schema({
 > Note: Keys can only be of type `"string"`, which is unnecessary to declare.
 
 > Note: A key such as `remoteId` might be serialized as simply `id` when
-communicating with a server. However, it's important to distinguish it from the
-client-generated `id` used within Orbit, so it requires a unique name.
+> communicating with a server. However, it's important to distinguish it from the
+> client-generated `id` used within Orbit, so it requires a unique name.
 
 ### Record initialization
 
@@ -231,22 +232,22 @@ is undefined. It may be extended to allow per-model defaults to be set as well.
 Here's an example that creates a schema and initializes a record:
 
 ```javascript
-import { Schema } from '@orbit/schema';
+import { Schema } from "@orbit/schema";
 
 const schema = new Schema({
   models: {
     planet: {
       attributes: {
-        name: { type: 'string' }
+        name: { type: "string" }
       }
     }
   }
 });
 
 let earth = {
-  type: 'planet',
+  type: "planet",
   attributes: {
-    name: 'Earth'
+    name: "Earth"
   }
 };
 
@@ -267,6 +268,8 @@ local ID scheme. Here's a naive example:
 let counter = 0;
 
 const schema = new Schema({
-  generateId(type) { return counter++; }
+  generateId(type) {
+    return counter++;
+  }
 });
 ```

@@ -2,6 +2,7 @@ title: Coordination strategies
 type: guide
 order: 9
 version: 0.16
+
 ---
 
 Orbit provides another layer of abstraction on top of direct event observation
@@ -13,17 +14,17 @@ it applies a set of coordination strategies.
 Since configuring event handlers is so straightforward, what's the point of
 using a coordinator? There are several benefits:
 
-* You can easily add preconfigured strategies, such as an event logging
+- You can easily add preconfigured strategies, such as an event logging
   strategy and a log truncation strategy (to keep the size of in-memory logs
   to a minimum). You can also create your own strategies and share them across
   applications.
 
-* Strategies can be activated _and deactivated_ all together by simply calling
+- Strategies can be activated _and deactivated_ all together by simply calling
   `coordinator.activate()` / `coordinator.deactivate()`. Deactivating
   event handlers directly requires careful tracking of handler functions, which
   can be tedious. However, it's important to do this to avoid leaking memory.
 
-* Coordinators can share a log-level across all strategies. Sometimes you want
+- Coordinators can share a log-level across all strategies. Sometimes you want
   to see debug info and sometimes only errors.
 
 ## Creating a coordinator
@@ -34,7 +35,7 @@ coordination strategies between sources.
 A coordinator can be created with sources and strategies:
 
 ```javascript
-import Coordinator from '@orbit/coordinator';
+import Coordinator from "@orbit/coordinator";
 
 const coordinator = new Coordinator({
   sources: [memory, backup],
@@ -46,7 +47,7 @@ Or sources and strategies can be added / removed any time the coordinator is
 inactive:
 
 ```javascript
-import Coordinator from '@orbit/coordinator';
+import Coordinator from "@orbit/coordinator";
 
 const coordinator = new Coordinator();
 
@@ -61,22 +62,20 @@ A coordinator won't actually do anything until it's been "activated", which is
 an async process that activates all of the coordinator's strategies:
 
 ```javascript
-coordinator.activate()
-  .then(() => {
-    console.log('Coordinator is active');
-  });
+coordinator.activate().then(() => {
+  console.log("Coordinator is active");
+});
 ```
 
 Note that you can assign a log-level when activating a coordinator, and it
 will be applied to all of the coordinator's strategies:
 
 ```javascript
-import { LogLevel } from '@orbit/coordinator';
+import { LogLevel } from "@orbit/coordinator";
 
-coordinator.activate({ logLevel: LogLevel.Info })
-  .then(() => {
-    console.log('Coordinator will be chatty');
-  });
+coordinator.activate({ logLevel: LogLevel.Info }).then(() => {
+  console.log("Coordinator will be chatty");
+});
 ```
 
 Possible log levels include `None`, `Errors`, `Warnings`, and `Info`.
@@ -87,10 +86,9 @@ If you want to temporarily disable a coordinator or change its settings, you
 can deactivate it:
 
 ```javascript
-coordinator.deactivate()
-  .then(() => {
-    console.log('Coordinator is inactive');
-  });
+coordinator.deactivate().then(() => {
+  console.log("Coordinator is inactive");
+});
 ```
 
 At this point you can add/remove strategies and/or sources.
@@ -109,40 +107,44 @@ strategies.
 Request strategies participate in the [request flow](./data-flows.html). Every
 request strategy should be defined with:
 
-* `source` - the name of the observed source
-* `on` - the name of the event to observe
-* `target` - the name of the target source
-* `action` - the name of the action on `target` that should be invoked
-* `blocking` - a boolean indicating whether to block the completion of the
+- `source` - the name of the observed source
+- `on` - the name of the event to observe
+- `target` - the name of the target source
+- `action` - the name of the action on `target` that should be invoked
+- `blocking` - a boolean indicating whether to block the completion of the
   observed event until the action on the target has been processed
 
 Here are some example strategies that query / update a remote server
 pessimistically whenever a memory source is queried / updated:
 
 ```javascript
-import { RequestStrategy } from '@orbit/coordinator';
+import { RequestStrategy } from "@orbit/coordinator";
 
 // Query the remote server whenever the memory source is queried
-coordinator.addStrategy(new RequestStrategy({
-  source: 'memory',
-  on: 'beforeQuery',
+coordinator.addStrategy(
+  new RequestStrategy({
+    source: "memory",
+    on: "beforeQuery",
 
-  target: 'remote',
-  action: 'pull',
+    target: "remote",
+    action: "pull",
 
-  blocking: true
-}));
+    blocking: true
+  })
+);
 
 // Update the remote server whenever the memory source is updated
-coordinator.addStrategy(new RequestStrategy({
-  source: 'memory',
-  on: 'beforeUpdate',
+coordinator.addStrategy(
+  new RequestStrategy({
+    source: "memory",
+    on: "beforeUpdate",
 
-  target: 'remote',
-  action: 'push',
+    target: "remote",
+    action: "push",
 
-  blocking: true
-}));
+    blocking: true
+  })
+);
 ```
 
 It's possible to apply a filter function to a strategy so that it only applies
@@ -150,23 +152,27 @@ to certain data. For instance, the following filter limits which queries should
 be handled by a remote server:
 
 ```javascript
-import { RequestStrategy } from '@orbit/coordinator';
+import { RequestStrategy } from "@orbit/coordinator";
 
 // Only forward requests for planets on to the remote server
-coordinator.addStrategy(new RequestStrategy({
-  source: 'memory',
-  on: 'beforeQuery',
+coordinator.addStrategy(
+  new RequestStrategy({
+    source: "memory",
+    on: "beforeQuery",
 
-  target: 'remote',
-  action: 'pull',
+    target: "remote",
+    action: "pull",
 
-  blocking: true,
+    blocking: true,
 
-  filter(query) {
-    return query.expression.op === 'findRecords' &&
-           query.expression.type === 'planet'
-  }
-}));
+    filter(query) {
+      return (
+        query.expression.op === "findRecords" &&
+        query.expression.type === "planet"
+      );
+    }
+  })
+);
 ```
 
 ### Sync strategies
@@ -174,9 +180,9 @@ coordinator.addStrategy(new RequestStrategy({
 Sync strategies participate in the [sync flow](./data-flows.html). Every
 sync strategy should be defined with:
 
-* `source` - the name of the observed source
-* `target` - the name of the target source
-* `blocking` - a boolean indicating whether to block the completion of the
+- `source` - the name of the observed source
+- `target` - the name of the target source
+- `blocking` - a boolean indicating whether to block the completion of the
   observed event until the action on the target has been processed
 
 Sync strategies only observe the `transform` event and apply the `sync` method
@@ -186,14 +192,16 @@ The following strategy synchronizes any changes to the `remote` source with a
 `memory` source:
 
 ```javascript
-import { SyncStrategy } from '@orbit/coordinator';
+import { SyncStrategy } from "@orbit/coordinator";
 
 // Sync all changes received from the remote server to the memory source
-coordinator.addStrategy(new SyncStrategy({
-  source: 'remote',
-  target: 'memory',
-  blocking: true
-}));
+coordinator.addStrategy(
+  new SyncStrategy({
+    source: "remote",
+    target: "memory",
+    blocking: true
+  })
+);
 ```
 
 As described above for request strategies, sync strategies can also accept a
@@ -207,7 +215,7 @@ console. By default, all events will be logged on all sources registered to a
 coordinator:
 
 ```javascript
-import { EventLoggingStrategy } from '@orbit/coordinator';
+import { EventLoggingStrategy } from "@orbit/coordinator";
 
 coordinator.addStrategy(new EventLoggingStrategy());
 ```
@@ -216,9 +224,11 @@ You may wish to only observe events on certain interfaces, which can be
 specified as follows:
 
 ```javascript
-coordinator.addStrategy(new EventLoggingStrategy({
-  interfaces: ['updatable', 'pushable', 'syncable']
-}));
+coordinator.addStrategy(
+  new EventLoggingStrategy({
+    interfaces: ["updatable", "pushable", "syncable"]
+  })
+);
 ```
 
 Valid interfaces include `updatable`, `queryable`, `pushable`, `pullable`, and
@@ -228,9 +238,11 @@ Furthermore, you may wish to only observe certain sources, which can be
 specified by name:
 
 ```javascript
-coordinator.addStrategy(new EventLoggingStrategy({
-  sources: ['remote', 'memory']
-}));
+coordinator.addStrategy(
+  new EventLoggingStrategy({
+    sources: ["remote", "memory"]
+  })
+);
 ```
 
 The event logging strategy will respect the log level that is specified when
@@ -248,7 +260,7 @@ all.
 To add a log truncation strategy that applies to all sources:
 
 ```javascript
-import { LogTruncationStrategy } from '@orbit/coordinator';
+import { LogTruncationStrategy } from "@orbit/coordinator";
 
 coordinator.addStrategy(new LogTruncationStrategy());
 ```
@@ -256,7 +268,9 @@ coordinator.addStrategy(new LogTruncationStrategy());
 To limit the strategy to apply to only specific sources:
 
 ```javascript
-coordinator.addStrategy(new LogTruncationStrategy({
-  sources: ['backup', 'memory']
-}));
+coordinator.addStrategy(
+  new LogTruncationStrategy({
+    sources: ["backup", "memory"]
+  })
+);
 ```
