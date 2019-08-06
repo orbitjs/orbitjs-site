@@ -99,12 +99,14 @@ const theMoon = {
   }
 };
 
-memory
-  .update(t => [t.addRecord(venus), t.addRecord(earth), t.addRecord(theMoon)])
-  .then(() => memory.query(q => q.findRecords("planet").sort("name")))
-  .then(planets => {
-    console.log(planets);
-  });
+await memory.update(t => [
+  t.addRecord(venus),
+  t.addRecord(earth),
+  t.addRecord(theMoon)
+]);
+
+let planets = await memory.query(q => q.findRecords("planet").sort("name"));
+console.log(planets);
 ```
 
 The following output should be logged:
@@ -157,7 +159,7 @@ to the memory source's cache passes through a schema consistency check.
 Let's look at how the memory source is queried:
 
 ```javascript
-memory.query(q => q.findRecords("planet").sort("name"));
+let planets = await memory.query(q => q.findRecords("planet").sort("name"));
 ```
 
 Because we pass a function to `query`, Orbit provides us with a query builder
@@ -171,7 +173,7 @@ involved).
 Here's an example of a more complex query that filters, sorts, and paginates:
 
 ```javascript
-memory.query(q =>
+let planets = await memory.query(q =>
   q
     .findRecords("planet")
     .filter({ attribute: "classification", value: "terrestrial" })
@@ -242,8 +244,8 @@ memory.on("transform", transform => {
 ```
 
 Like all mutation and query methods on sources, the `sync` call returns a
-promise. If we want to guarantee that transforms can't be applied to our
-memory source without also being backed up, we should return the promise in the event
+promise. If we want to guarantee that transforms can't be applied to our memory
+source without also being backed up, we should return the promise in the event
 handler:
 
 ```javascript
@@ -286,8 +288,8 @@ const backupMemorySync = new SyncStrategy({
 
 coordinator.addStrategy(backupMemorySync);
 
-coordinator.activate(); // returns a promise that resolves when all strategies
-// have been activated
+// `activate` resolves when all strategies have been activated
+await coordinator.activate();
 ```
 
 Although this might seem like an unnecessary amount of complexity compared with
@@ -308,23 +310,22 @@ the simple event handler, there are a number of benefits to using a coordinator:
 
 ## Restoring from backup
 
-Although we're now backing up our memory source to browser storage, we have not yet
-set up a process to restore that backed up data.
+Although we're now backing up our memory source to browser storage, we have not
+yet set up a process to restore that backed up data.
 
 If we want our app to restore all of its data from browser storage when it
 first boots, we could perform the following:
 
 ```javascript
-backup
-  .pull(q => q.findRecords())
-  .then(transform => memory.sync(transform))
-  .then(() => coordinator.activate());
+let transform = await backup.pull(q => q.findRecords());
+await memory.sync('transform');
+await coordinator.activate());
 ```
 
-This code first pulls all the records from backup and then syncs them
-with the main memory source _before_ activating the coordinator. In this way, the
-coordination strategy that backs up the memory source won't be enabled until after
-the restore is complete.
+This code first pulls all the records from backup and then syncs them with the
+main memory source _before_ activating the coordinator. In this way, the
+coordination strategy that backs up the memory source won't be enabled until
+after the restore is complete.
 
 We now have an application which has data fully contained in the browser. Any
 data that's entered can be accessed while offline and will even persist across
@@ -334,7 +335,7 @@ browser refreshes.
 
 Want to experiment more?
 
-See [Part 2 of this example in CodeSandbox](https://codesandbox.io/s/rr0lkz3rxq??previewwindow=console).
+See [Part 2 of this example in CodeSandbox](https://codesandbox.io/s/orbitjs-v016-getting-started-part-2-pd2z3?previewwindow=console).
 
 ## Communicating with a server
 
@@ -376,7 +377,7 @@ coordinator.addStrategy(
     on: "beforeQuery",
 
     target: "remote",
-    action: "pull",
+    action: "query",
 
     blocking: false
   })
@@ -389,7 +390,7 @@ coordinator.addStrategy(
     on: "beforeUpdate",
 
     target: "remote",
-    action: "push",
+    action: "update",
 
     blocking: false
   })
