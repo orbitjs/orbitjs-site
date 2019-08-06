@@ -2,6 +2,7 @@ title: Introduction
 type: guide
 order: 0
 version: 0.16
+
 ---
 
 ## What is Orbit.js?
@@ -23,27 +24,27 @@ runtime.
 Orbit was primarily designed to support the data needs of ambitious client-side
 web applications, including:
 
-* Optimistic and pessimistic UX patterns.
+- Optimistic and pessimistic UX patterns.
 
-* Pluggable sources that share common interfaces, to allow similar behavior on
+- Pluggable sources that share common interfaces, to allow similar behavior on
   different devices.
 
-* Connection durability by queueing and retrying requests.
+- Connection durability by queueing and retrying requests.
 
-* Application durability by persisting all transient state.
+- Application durability by persisting all transient state.
 
-* Warm caches of data available immediately on startup.
+- Warm caches of data available immediately on startup.
 
-* Client-first / serverless development.
+- Client-first / serverless development.
 
-* Custom request coordination across multiple sources, allowing for priority
+- Custom request coordination across multiple sources, allowing for priority
   and fallback plans.
 
-* Branching and merging of data caches.
+- Branching and merging of data caches.
 
-* Deterministic change tracking.
+- Deterministic change tracking.
 
-* Undo / redo editing support.
+- Undo / redo editing support.
 
 ## Basic constraints
 
