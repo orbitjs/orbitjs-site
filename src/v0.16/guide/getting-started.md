@@ -1,6 +1,6 @@
 title: Getting started
 type: guide
-order: 2
+order: 10
 version: 0.16
 
 ---
@@ -18,7 +18,7 @@ Let's start by defining a schema for our solar system's data:
 ```javascript
 import { Schema } from "@orbit/data";
 
-const schemaDefinition = {
+const schema = new Schema({
   models: {
     planet: {
       attributes: {
@@ -38,9 +38,7 @@ const schemaDefinition = {
       }
     }
   }
-};
-
-const schema = new Schema(schemaDefinition);
+});
 ```
 
 This schema defines two models, `planet` and `moon`, as well as the attributes

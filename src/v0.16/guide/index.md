@@ -16,10 +16,17 @@ module formats and ES language levels. Most Orbit packages are isomorphic—they
 can run in modern browsers as well as in the [Node.js](https://nodejs.org/)
 runtime.
 
-> Looking a quick code walkthrough? Check out the [Getting
-> Started Guide](./getting-started.html).
+## Quick links
 
-## Goals
+<section>
+
+Looking a quick code walkthrough? Check out the [Getting Started Guide](./getting-started.html).
+
+Upgrading from v0.15? [Learn what's new](./whats-new.html).
+
+</section>
+
+## Orbit's goals
 
 Orbit was primarily designed to support the data needs of ambitious client-side
 web applications, including:
