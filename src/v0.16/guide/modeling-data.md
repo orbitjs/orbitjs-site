@@ -194,6 +194,42 @@ const schema = new Schema({
 });
 ```
 
+### Model name inflections
+
+By default, Orbit uses very simple inflections, or pluralization/singularization
+of model names - e.g. `user <-> users`. Depending on your API, you may need to
+handle this yourself. A common error from same is where `countries` gets converted
+to `countrie`, as the `s` is programatically removed from it when it's singularized.
+
+You can override the Orbit inflectors via the Schema factory, e.g.
+
+```javascript
+new Schema({
+  models,
+  pluralize,
+  singularize
+});
+```
+
+There are several inflection packages available on NPM, or you can keep it super
+simple for a small application and do something like the following, where a simple
+map containing your model names and their inflections can be kept up to date with
+your models.
+
+```javascript
+const inflect = {
+  country: 'countries',
+  countries: 'country',
+  ...
+}
+
+new Schema({
+  models,
+  pluralize: word => inflect[word],
+  singularize: word => inflect[word]
+})
+```
+
 ### Model keys
 
 When working with remote servers that do not support client-generated IDs, it's
