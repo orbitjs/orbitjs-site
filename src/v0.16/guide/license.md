@@ -1,6 +1,6 @@
 title: License
 type: guide
-order: 100
+order: 1000
 version: 0.16
 
 ---

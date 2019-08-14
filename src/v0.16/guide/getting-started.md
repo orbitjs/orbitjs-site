@@ -1,6 +1,6 @@
 title: Getting started
 type: guide
-order: 2
+order: 10
 version: 0.16
 
 ---

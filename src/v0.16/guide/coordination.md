@@ -1,6 +1,6 @@
 title: Coordination strategies
 type: guide
-order: 9
+order: 90
 version: 0.16
 
 ---
