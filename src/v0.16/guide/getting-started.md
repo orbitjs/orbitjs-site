@@ -316,8 +316,8 @@ first boots, we could perform the following:
 
 ```javascript
 let transform = await backup.pull(q => q.findRecords());
-await memory.sync('transform');
-await coordinator.activate());
+await memory.sync(transform);
+await coordinator.activate();
 ```
 
 This code first pulls all the records from backup and then syncs them with the
