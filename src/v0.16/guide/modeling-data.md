@@ -155,9 +155,15 @@ object that contains `attributes`, `relationships`, and/or `keys`.
 
 ### Model attributes
 
-Attributes may be defined by their `type`, such as `"string"` or `"date"`,
-which can be used to define their purpose and contents. An attribute's type may
-also be used to determine how it should be serialized.
+Attributes may be defined by their `type`, which determines what type of data
+they can contain. An attribute's type may also be used to determine how it
+should be serialized. Valid attribute types are:
+
+- `boolean`
+- `date`
+- `date-time`
+- `number`
+- `string`
 
 ### Model relationships
 
