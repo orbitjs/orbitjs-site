@@ -205,7 +205,7 @@ const schema = new Schema({
 By default, Orbit uses very simple inflections, or pluralization/singularization
 of model names - e.g. `user <-> users`. Depending on your API, you may need to
 handle this yourself. A common error from same is where `countries` gets converted
-to `countrie`, as the `s` is programatically removed from it when it's singularized.
+to `countrie`, as the `s` is programmatically removed from it when it's singularized.
 
 You can override the Orbit inflectors via the Schema factory, e.g.
 
