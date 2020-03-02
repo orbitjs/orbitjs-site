@@ -26,7 +26,7 @@ const schema = new Schema({
         classification: { type: "string" }
       },
       relationships: {
-        moons: { type: "hasMany", model: "moon", inverse: "planet" }
+        moons: { kind: "hasMany", type: "moon", inverse: "planet" }
       }
     },
     moon: {
@@ -34,7 +34,7 @@ const schema = new Schema({
         name: { type: "string" }
       },
       relationships: {
-        planet: { type: "hasOne", model: "planet", inverse: "moons" }
+        planet: { kind: "hasOne", type: "planet", inverse: "moons" }
       }
     }
   }

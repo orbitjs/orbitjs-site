@@ -135,7 +135,7 @@ const schema = new Schema({
         classification: { type: "string" }
       },
       relationships: {
-        moons: { type: "hasMany", model: "moon", inverse: "planet" }
+        moons: { kind: "hasMany", type: "moon", inverse: "planet" }
       }
     },
     moon: {
@@ -143,7 +143,7 @@ const schema = new Schema({
         name: { type: "string" }
       },
       relationships: {
-        planet: { type: "hasOne", model: "planet", inverse: "moons" }
+        planet: { kind: "hasOne", type: "planet", inverse: "moons" }
       }
     }
   }
@@ -167,12 +167,12 @@ should be serialized. Valid attribute types are:
 
 ### Model relationships
 
-Two types of relationships between models are allowed:
+Two kind of relationships between models are allowed:
 
 - `hasOne` - for to-one relationships
 - `hasMany` - for to-many relationships
 
-Relationships must define the related `model` and may optionally define their
+Relationships must define the related `type` and may optionally define their
 `inverse`, which should correspond to the name of a relationship on the related
 model. Inverse relationships should be defined when relationships must be kept
 synchronized, so that adding or removing a relationship on the primary model
@@ -188,12 +188,12 @@ const schema = new Schema({
   models: {
     planet: {
       relationships: {
-        moons: { type: "hasMany", model: "moon", inverse: "planet" }
+        moons: { kind: "hasMany", type: "moon", inverse: "planet" }
       }
     },
     moon: {
       relationships: {
-        planet: { type: "hasOne", model: "planet", inverse: "moons" }
+        planet: { kind: "hasOne", type: "planet", inverse: "moons" }
       }
     }
   }

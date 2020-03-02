@@ -167,8 +167,8 @@ coordinator.addStrategy(
 
     filter(query) {
       return (
-        query.expression.op === "findRecords" &&
-        query.expression.type === "planet"
+        query.expressions[0].op === "findRecords" &&
+        query.expressions[0].type === "planet"
       );
     }
   })

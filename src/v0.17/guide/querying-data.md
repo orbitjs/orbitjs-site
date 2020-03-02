@@ -100,7 +100,7 @@ export interface OffsetLimitPageSpecifier extends PageSpecifier {
 The `Query` interface has the following members:
 
 - `id` - a string that uniquely identifies the query
-- `expression` - a `QueryExpression` object
+- `expressions` - an array of `QueryExpression` objects
 - `options` - an optional object that represents options that can influence how
   a query is processed
 
@@ -110,7 +110,7 @@ to use a builder function that returns a query.
 To use a query builder, pass a function into a source's method that expects
 a query, such as `query` or `pull`. A `QueryBuilder` that's compatible
 with the source should be applied as an argument. You can then use this builder
-to create a query expression.
+to create query expressions.
 
 ### Standard queries
 
