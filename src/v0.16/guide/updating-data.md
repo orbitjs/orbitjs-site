@@ -81,7 +81,7 @@ interface ReplaceRelatedRecordOperation extends Operation {
   op: "replaceRelatedRecord";
   record: RecordIdentity;
   relationship: string;
-  relatedRecord: RecordIdentity;
+  relatedRecord: RecordIdentity | null;
 }
 ```
 
