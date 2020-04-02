@@ -231,7 +231,7 @@ const denserThanEarth = orbit.cache.query((q) => {
 ```
 
 1. the left hand value:
- This is a reference to the property of the recors that you want to compare. This can either be a `relationship` or an `attribute`. During evaluation, the reference will be replaced by the actual values of the records.
+ This is a reference to the property of the records that you want to compare. This can either be a `relationship` or an `attribute`. During evaluation, the reference will be replaced by the actual values of the records.
  
 2. the comparison operation
  The operation determines the way the two values will be compared.
