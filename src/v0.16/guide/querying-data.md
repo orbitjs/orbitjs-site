@@ -71,7 +71,7 @@ export interface AttributeSortSpecifier extends SortSpecifier {
   attribute: string;
 }
 
-export type ComparisonOperator = "equal" | "gt" | "lt" | "gte" | "lte" | "some";
+export type ComparisonOperator = "equal" | "gt" | "lt" | "gte" | "lte" | "some" | "all" | "none";
 
 export interface FilterSpecifier {
   op: ComparisonOperator;
