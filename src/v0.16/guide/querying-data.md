@@ -71,7 +71,7 @@ export interface AttributeSortSpecifier extends SortSpecifier {
   attribute: string;
 }
 
-export type ComparisonOperator = "equal" | "gt" | "lt" | "gte" | "lte";
+export type ComparisonOperator = "equal" | "gt" | "lt" | "gte" | "lte" | "some" | "all" | "none";
 
 export interface FilterSpecifier {
   op: ComparisonOperator;
@@ -209,6 +209,95 @@ memory.query(q => q.findRelatedRecords({ id: 'solar', type: 'planetarySystem' },
                   .sort('name')
                   .page({ offset: 0, limit: 10 }));
 ```
+
+## Filtering
+
+As shown in some of the previous examples, you can filter over the records that are found by a `findRecords` or `findRelatedRecords` query. Filtering is done building a boolean expression and only retrieving the records for which this expression returns `true`. This boolean expression, just like it is with regular javascript, is built out of three parts.
+
+Javascript:
+```
+ const denserThanEarth = planets.filter((planet) => {
+    return planet.density    >     earth.density
+ }) //    |      1       |   2    |      3      |
+                                         
+```
+
+Filter expression:
+```
+const denserThanEarth = orbit.cache.query((q) => {
+  return q.findRecords('planets')
+    .filter({ attribute: 'radius', op: 'lt', value: earth.density })
+}) //       |         1          |    2    |          3           | 
+```
+
+1. the left hand value:
+ This is a reference to the property of the records that you want to compare. This can either be a `relationship` or an `attribute`. During evaluation, the reference will be replaced by the actual values of the records.
+ 
+2. the comparison operation
+ The operation determines the way the two values will be compared.
+ 
+3. the right hand value:
+ This is a value that will remain constant for the entirety of the filter. This value determines, given the operation, which records will be returned and which will not.
+ 
+### Comparison operators for filtering
+
+There are two different kinds of filtering. Filtering on attribute values and filtering on relationship values.
+Both have their own comparison operators.
+
+#### Attribute filtering
+
+Attribute filtering looks like the following:
+
+```
+const denserThanEarth = orbit.cache.query((q) => {
+  return q.findRecords('planets')
+    .filter({ attribute: 'radius', op: 'lt', value: earth.density })
+})
+```
+
+For attribute filtering, the following comparison operators are available.
+
+- `equal`: alias for the `===` operator. 
+- `gt`: alias for the `>` operator. 
+- `lt`: alias for the `<` operator. 
+- `gte`: alias for the `>=` operator.
+- `lte`: alias for the `<=` operator.
+
+#### Relationship filtering
+
+Relationship filtering has two types:
+
+Filtering on a `hasOne` relationship:
+```
+const moonsOfJupiter = orbit.cache.query((q) => {
+  return q.findRecords('moon')
+    .filter({ relationship: 'planet', op: 'equal', record: { type: 'planet', id: 'jupiter' } })
+})
+```
+
+Filtering on a `hasMany` relationship:
+```
+const theSolarSystem = orbit.cache.query((q) => {
+  return q.findRecords('planetarySystem')
+    .filter({ 
+      relationship: 'planets', 
+      op: 'some', 
+      records: [{ type: 'planet', id: 'earth' }] 
+     })
+})
+```
+
+Filtering on a `hasOne` relationship has different comparison operations available than filtering on a `hasMany` relationship.
+
+`hasOne` operations:
+ 
+- `equal`: returns a record if the left hand relationship is equal to the right hand relationship.
+
+`hasMany` operations:
+- `equal`: returns a record if the left hand relationsips are identical to the right hand relationships.
+- `all`: returns a record if the left hand relationships contain all the right hand relationships.
+- `some`: returns a record if the left hand relationships contain one or more of the right hand relationships.
+- `none`: returns a record if none of the left hand relationships are present in the right hand relationships.
 
 #### findRelatedRecords vs findRecords.filter({ relation: ..., record: ... })
 
