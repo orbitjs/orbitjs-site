@@ -94,7 +94,8 @@ Queues emit the following events when processing tasks:
 As each task is processed successfully, it will be removed from the queue.
 
 If processing fails, the queue will emit the `fail` event and processing will
-stop. At that point, you have several options:
+stop. At that point, there are several different methods on the queue you can
+call, depending on how you want to respond to the failure:
 
 - `retry()` will retry the task that failed.
 
