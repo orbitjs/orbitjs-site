@@ -212,7 +212,7 @@ memory.query(q => q.findRelatedRecords({ id: 'solar', type: 'planetarySystem' },
 
 ## Filtering
 
-You as shown in some of the previous examples, you can filter over the records that are found by a `findRecords` or `findRelatedRecords` query. Filtering is done building a boolean expression and only retrieving the records for which this expression returns `true`. This boolean expression, just like it is with regular javascript, is built out of three parts.
+As shown in some of the previous examples, you can filter over the records that are found by a `findRecords` or `findRelatedRecords` query. Filtering is done building a boolean expression and only retrieving the records for which this expression returns `true`. This boolean expression, just like it is with regular javascript, is built out of three parts.
 
 Javascript:
 ```
