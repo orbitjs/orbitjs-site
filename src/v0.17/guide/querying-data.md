@@ -359,3 +359,25 @@ let planets = memory.cache.query(q => q.findRecords("planet").sort("name"));
 > sources to participate in the fulfillment of the query. If you want to
 > coordinate queries across multiple sources, it's critical to make requests
 > directly on the memory source.
+
+### LiveQuery
+
+On a memory source, you can subscribe to a `LiveQuery`. For that you need to create
+a `LiveQuery` instance and then subscribe to changes. By default `LiveQuery` will
+run on memory cache `patch` event with a debounce. Subscription callback will be
+called on every operation which is relevant to the query.
+
+> If you use a pull based reactive system (for example Glimmer tracking) you can
+> set debounceLiveQueries option to false on memory cache.
+
+```javascript
+// Create a new LiveQuery instance
+let planetsLiveQuery = memory.cache.liveQuery(q => q.findRecords("planet"));
+// Subscribe to LiveQuery changes
+let unsubscribe = planetsLiveQuery.subscribe((update) => {
+  // Query for results when a change occure
+  update.query();
+});
+// Unsubscribe from the LiveQuery
+unsubscribe();
+```
