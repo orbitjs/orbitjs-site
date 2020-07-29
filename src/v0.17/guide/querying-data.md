@@ -342,6 +342,15 @@ In this instance, we're telling a source named `remote` (let's say it's a
 result in a server response that includes contacts together with their related
 phone numbers.
 
+It is possible to pass different options to each expression in the query.
+
+```javascript
+memory.query(q => [
+  q.findRecords("contact").options({ include: ["phone-numbers"] }),
+  q.findRecords("meeting").options({ include: ["location"] })
+]);
+```
+
 ## Querying a memory source's cache
 
 Note that `memory.query` is asynchronous and thus returns results wrapped in a
