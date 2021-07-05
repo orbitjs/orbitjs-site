@@ -161,9 +161,16 @@ should be serialized. Valid attribute types are:
 
 - `boolean`
 - `date`
-- `date-time`
+- `datetime`
 - `number`
 - `string`
+
+The following attribute types are passed through as-is and no special
+serialization is performed:
+
+- `object`
+- `array`
+- `unknown`
 
 ### Model relationships
 
